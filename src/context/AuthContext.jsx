@@ -1,4 +1,5 @@
 import { createContext, useState } from "react";
+import { jwtDecode } from "jwt-decode";
 
 const AuthContext = createContext();
 
@@ -12,8 +13,11 @@ const AuthContext = createContext();
  * @description Este componente envuelve a sus hijos con el contexto de autenticación, proporcionando acceso a la información del usuario y funciones de inicio y cierre de sesión.
  */
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
-  const [token, setToken] = useState(localStorage.getItem("token"));
+  const [token, setToken] = useState(() => localStorage.getItem("token"));
+  const [user, setUser] = useState(() => {
+    const storedToken = localStorage.getItem("token");
+    return storedToken ? jwtDecode(storedToken) : null;
+  });
 
   /**
    * Inicia sesión con el usuario y el token proporcionados.
@@ -21,18 +25,16 @@ export function AuthProvider({ children }) {
    * @param {Object} userData
    * @param {string} token
    */
-  const login = (userData, token) => {
-    setUser(userData);
+  const login = (token) => {
     setToken(token);
-    localStorage.setItem("user", JSON.stringify(userData));
     localStorage.setItem("token", token);
+    setUser(jwtDecode(token));
   };
 
   /** Cierra la sesión del usuario */
   const logout = () => {
-    setUser(null);
     setToken(null);
-    localStorage.removeItem("user");
+    setUser(null);
     localStorage.removeItem("token");
   };
 
