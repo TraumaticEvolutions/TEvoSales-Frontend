@@ -1,31 +1,45 @@
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { useAuth } from "../context/useAuth";
-import axios from "axios";
+import { loginRequest } from "../services/api";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 import Button from "../components/Button";
 
+/**
+ * Componente de inicio de sesión
+ * * Este componente permite a los usuarios iniciar sesión en la aplicación.
+ * * Utiliza el hook `useForm` de `react-hook-form` para manejar el formulario de inicio de sesión.
+ * * Si el usuario ya tiene un token en el almacenamiento local, se redirige automáticamente a la página principal.
+ *
+ * @author Ángel Aragón
+ * @returns {JSX.Element}
+ */
 export default function Login() {
+  const { login } = useAuth();
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      navigate("/");
+    }
+  }, [navigate]);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const { login } = useAuth();
+
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const navigate = useNavigate();
 
   const onSubmit = async (data) => {
     setError("");
     setIsLoading(true);
     console.log("Datos enviados:", data);
     try {
-      const res = await axios.post(
-        "http://localhost:8080/api/auth/login",
-        data
-      );
-      login(res.data.token);
+      const res = await loginRequest(data);
+      console.log("Respuesta del servidor:", res);
+      login(res.token);
       navigate("/");
     } catch (err) {
       console.error("Error al iniciar sesión:", err);

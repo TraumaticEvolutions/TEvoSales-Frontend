@@ -1,6 +1,12 @@
 import { useAuth } from "../context/useAuth";
 import { useNavigate } from "react-router-dom";
 
+/**
+ * Página principal del Marketplace
+ *
+ * @returns {JSX.Element} Componente de la página principal
+ * @author Ángel Aragón
+ */
 export default function Home() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
