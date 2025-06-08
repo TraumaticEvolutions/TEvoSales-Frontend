@@ -83,7 +83,15 @@ export default function Login() {
           <span className="text-red-500">{errors.password.message}</span>
         )}
       </div>
-      <Button isLoading={isLoading}>Entrar</Button>
+      <Button
+        type="submit"
+        bgColor="bg-blue-500"
+        bgColorHover="hover:bg-blue-400"
+        txtColor="text-white"
+        className="w-full"
+        text={isLoading ? "Cargando..." : "Iniciar sesión"}
+        disabled={isLoading}
+      />
       {error && <div className="text-red-500 mt-2">{error}</div>}
     </form>
   );
