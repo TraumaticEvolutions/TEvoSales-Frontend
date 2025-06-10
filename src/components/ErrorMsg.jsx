@@ -13,7 +13,7 @@ import PropTypes from "prop-types";
 export default function ErrorMsg({ children }) {
   return (
     <div className="text-red-500 text-sm mt-2 border border-red-500 bg-red-100 p-3 rounded-lg">
-      <MdError className="inline-block mr-1" /> {children}
+      <MdError size={15} className="inline-block mr-1 mb-0.5" /> {children}
     </div>
   );
 }

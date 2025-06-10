@@ -25,3 +25,15 @@ export async function randomProductsRequest() {
   const response = await axios.get(`${API_URL}/products/random`);
   return response.data;
 }
+
+/**
+ * Registra un nuevo usuario.
+ *
+ * @param {Object} userData - Datos del usuario a registrar.
+ * @returns {Promise<Object>} La respuesta del servidor con los datos del usuario registrado.
+ * @author Ángel Aragón
+ */
+export async function registerRequest(userData) {
+  const response = await axios.post(`${API_URL}/users/register`, userData);
+  return response.data;
+}

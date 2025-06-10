@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { FiMenu } from "react-icons/fi";
 import { IoHome } from "react-icons/io5";
 import { ImExit } from "react-icons/im";
+import { GrUserNew } from "react-icons/gr";
 import { FaUserInjured } from "react-icons/fa";
 import Sidebar from "./Sidebar";
 import logo from "../assets/TEvoLogo.svg";
@@ -38,12 +39,20 @@ const Header = () => {
             <ImExit /> Cerrar sesión
           </button>
         ) : (
-          <Link
-            to="/login"
-            className="relative text-gray-700 hover:text-black font-semibold after:content-[''] after:absolute after:w-0 after:h-[2px] after:bottom-0 after:left-0 after:bg-black after:transition-all after:duration-600 hover:after:w-full flex items-center gap-2"
-          >
-            <FaUserInjured /> Iniciar sesión
-          </Link>
+          <>
+            <Link
+              to="/login"
+              className="relative text-gray-700 hover:text-black font-semibold after:content-[''] after:absolute after:w-0 after:h-[2px] after:bottom-0 after:left-0 after:bg-black after:transition-all after:duration-600 hover:after:w-full flex items-center gap-2"
+            >
+              <FaUserInjured /> Iniciar sesión
+            </Link>
+            <Link
+              to="/register"
+              className="relative text-gray-700 hover:text-black font-semibold after:content-[''] after:absolute after:w-0 after:h-[2px] after:bottom-0 after:left-0 after:bg-black after:transition-all after:duration-600 hover:after:w-full flex items-center gap-2"
+            >
+              <GrUserNew /> Registrarse
+            </Link>
+          </>
         )}
       </nav>
 

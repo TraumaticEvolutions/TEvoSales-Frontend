@@ -2,11 +2,12 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { useAuth } from "../context/useAuth";
 import { loginRequest } from "../services/api";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import Button from "../components/Button";
 import iconTEVO from "../assets/iconTEVO.svg";
 import ErrorMsg from "../components/ErrorMsg";
+import SuccessMsg from "../components/SuccessMsg";
 
 /**
  * Componente de inicio de sesión
@@ -18,8 +19,10 @@ import ErrorMsg from "../components/ErrorMsg";
  * @returns {JSX.Element}
  */
 export default function Login() {
+  const location = useLocation();
   const { login } = useAuth();
   const navigate = useNavigate();
+  const [successMsg] = useState(location.state?.message || "");
   useEffect(() => {
     if (localStorage.getItem("token")) {
       navigate("/");
@@ -62,12 +65,17 @@ export default function Login() {
           </p>
         </div>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+          {successMsg && <SuccessMsg>{successMsg}</SuccessMsg>}
           {error && <ErrorMsg>{error}</ErrorMsg>}
           <div>
-            <label className="block mb-1 font-medium text-gray-700">
+            <label
+              className="block mb-1 font-medium text-gray-700"
+              htmlFor="username"
+            >
               Usuario
             </label>
             <input
+              id="username"
               type="text"
               {...register("username", {
                 required: "El usuario es obligatorio",
@@ -84,10 +92,14 @@ export default function Login() {
             )}
           </div>
           <div>
-            <label className="block mb-1 font-medium text-gray-700">
+            <label
+              className="block mb-1 font-medium text-gray-700"
+              htmlFor="password"
+            >
               Contraseña
             </label>
             <input
+              id="password"
               type="password"
               {...register("password", {
                 required: "La contraseña es obligatoria",

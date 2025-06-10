@@ -3,6 +3,7 @@ import { FiX } from "react-icons/fi";
 import { IoHome } from "react-icons/io5";
 import { ImExit } from "react-icons/im";
 import { FaUserInjured } from "react-icons/fa";
+import { GrUserNew } from "react-icons/gr";
 
 /**
  * Componente Sidebar para navegación mobile.
@@ -47,13 +48,22 @@ const Sidebar = ({ isOpen, onClose, user, logout }) => {
             <ImExit /> Cerrar sesión
           </button>
         ) : (
-          <Link
-            to="/login"
-            onClick={onClose}
-            className="hover:text-white hover:bg-gray-700 pl-5 p-2 transition rounded-xl flex items-center gap-2"
-          >
-            <FaUserInjured /> Iniciar sesión
-          </Link>
+          <>
+            <Link
+              to="/login"
+              onClick={onClose}
+              className="hover:text-white hover:bg-gray-700 pl-5 p-2 transition rounded-xl flex items-center gap-2"
+            >
+              <FaUserInjured /> Iniciar sesión
+            </Link>
+            <Link
+              to="/register"
+              onClick={onClose}
+              className="hover:text-white hover:bg-gray-700 pl-5 p-2 transition rounded-xl flex items-center gap-2"
+            >
+              <GrUserNew /> Registrarse
+            </Link>
+          </>
         )}
       </nav>
     </div>
