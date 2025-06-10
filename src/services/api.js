@@ -37,3 +37,8 @@ export async function registerRequest(userData) {
   const response = await axios.post(`${API_URL}/users/register`, userData);
   return response.data;
 }
+
+export async function allProductsRequest(params = {}) {
+  const response = await axios.get(`${API_URL}/products/paged`, { params });
+  return response.data;
+}

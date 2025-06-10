@@ -6,6 +6,14 @@ import iconTEVO from "../assets/iconTEVO.svg";
 import ErrorMsg from "../components/ErrorMsg";
 import { registerRequest } from "../services/api";
 
+/**
+ * Componente de registro de usuario
+ * Este componente permite a los usuarios registrarse en la aplicación.
+ * Utiliza el hook `useForm` de `react-hook-form` para manejar el formulario de registro.
+ * @returns {JSX.Element}
+ *
+ * @author Ángel Aragón
+ */
 export default function Register() {
   const navigate = useNavigate();
   useEffect(() => {
@@ -29,11 +37,9 @@ export default function Register() {
       // eslint-disable-next-line no-unused-vars
       const { password2, ...dataToSend } = data;
       await registerRequest(dataToSend);
-      setTimeout(() => {
-        navigate("/login", {
-          state: { message: "¡Registro exitoso!" },
-        });
-      }, 2000);
+      navigate("/login", {
+        state: { message: "¡Registro exitoso!" },
+      });
     } catch (err) {
       if (err.response && err.response.status === 409) {
         setError("El usuario, email o DNI ya existe.");
