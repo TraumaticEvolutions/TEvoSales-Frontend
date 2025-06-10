@@ -5,6 +5,8 @@ import { loginRequest } from "../services/api";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import Button from "../components/Button";
+import iconTEVO from "../assets/iconTEVO.svg";
+import ErrorMsg from "../components/ErrorMsg";
 
 /**
  * Componente de inicio de sesión
@@ -35,64 +37,94 @@ export default function Login() {
   const onSubmit = async (data) => {
     setError("");
     setIsLoading(true);
-    console.log("Datos enviados:", data);
     try {
       const res = await loginRequest(data);
-      console.log("Respuesta del servidor:", res);
       login(res.token);
       navigate("/");
-    } catch (err) {
-      console.error("Error al iniciar sesión:", err);
-      setError(
-        err.response?.data?.message
-          ? "Credenciales incorrectas: " + err.response.data.message
-          : "Credenciales incorrectas o error de conexión"
-      );
+    } catch (error) {
+      console.error("Error al iniciar sesión:", error);
+      setError("Usuario o contraseña incorrectos.");
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className="max-w-sm mx-auto mt-10 p-4 border rounded"
-    >
-      <h2 className="text-2xl font-bold mb-4">Iniciar sesión</h2>
-      <div className="mb-4">
-        <label className="block mb-1">Usuario</label>
-        <input
-          type="text"
-          {...register("username", { required: "El usuario es obligatorio" })}
-          className="w-full border px-2 py-1 rounded"
-        />
-        {errors.username && (
-          <span className="text-red-500">{errors.username.message}</span>
-        )}
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#a7e8f2] via-[#ebfcff] to-white">
+      <div className="bg-white/90 shadow-xl rounded-2xl p-8 w-full max-w-md border border-[#e0f2fe]">
+        <div className="flex flex-col items-center mb-6">
+          <img src={iconTEVO} alt="Logo" className="w-16 h-16 mb-2" />
+          <h2 className="text-3xl font-bold text-primary mb-1">
+            Iniciar sesión
+          </h2>
+          <p className="text-gray-500 text-sm">
+            Accede a tu cuenta para continuar
+          </p>
+        </div>
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+          {error && <ErrorMsg>{error}</ErrorMsg>}
+          <div>
+            <label className="block mb-1 font-medium text-gray-700">
+              Usuario
+            </label>
+            <input
+              type="text"
+              {...register("username", {
+                required: "El usuario es obligatorio",
+              })}
+              className={`w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary transition ${
+                errors.username ? "border-red-400" : "border-gray-300"
+              }`}
+              autoComplete="username"
+            />
+            {errors.username && (
+              <span className="text-red-500 text-sm">
+                {errors.username.message}
+              </span>
+            )}
+          </div>
+          <div>
+            <label className="block mb-1 font-medium text-gray-700">
+              Contraseña
+            </label>
+            <input
+              type="password"
+              {...register("password", {
+                required: "La contraseña es obligatoria",
+              })}
+              className={`w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary transition ${
+                errors.password ? "border-red-400" : "border-gray-300"
+              }`}
+              autoComplete="current-password"
+            />
+            {errors.password && (
+              <span className="text-red-500 bg- text-sm">
+                {errors.password.message}
+              </span>
+            )}
+          </div>
+          <Button
+            type="submit"
+            bgColor="bg-cyan-700"
+            bgColorHover="hover:bg-cyan-500"
+            txtColor="text-white"
+            className="w-full py-2 text-lg font-semibold rounded-lg shadow transition"
+            text={isLoading ? "Cargando..." : "Iniciar sesión"}
+          />
+          <p className="mt-4 text-sm text-center text-gray-500">
+            ¿No tienes cuenta?
+          </p>
+          <Button
+            type="button"
+            bgColor="bg-transparent border-2 border-cyan-700"
+            bgColorHover="hover:border-cyan-500"
+            txtColor="text-cyan-700 hover:text-cyan-500"
+            className=" w-full py-2 text-lg font-semibold rounded-lg shadow transition"
+            text="Regístrate"
+            onClick={() => navigate("/register")}
+          />
+        </form>
       </div>
-      <div className="mb-4">
-        <label className="block mb-1">Contraseña</label>
-        <input
-          type="password"
-          {...register("password", {
-            required: "La contraseña es obligatoria",
-          })}
-          className="w-full border px-2 py-1 rounded"
-        />
-        {errors.password && (
-          <span className="text-red-500">{errors.password.message}</span>
-        )}
-      </div>
-      <Button
-        type="submit"
-        bgColor="bg-blue-500"
-        bgColorHover="hover:bg-blue-400"
-        txtColor="text-white"
-        className="w-full"
-        text={isLoading ? "Cargando..." : "Iniciar sesión"}
-        disabled={isLoading}
-      />
-      {error && <div className="text-red-500 mt-2">{error}</div>}
-    </form>
+    </div>
   );
 }

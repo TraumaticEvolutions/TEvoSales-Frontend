@@ -37,7 +37,7 @@ function Button({
   return (
     <button
       type={type}
-      className={`${bgColor} ${bgColorHover} ${txtColor} ${className} justify-self-end cursor-pointer text-white px-4 py-2 m-4 rounded-full shadow-md transition`}
+      className={`${bgColor} ${bgColorHover} ${txtColor} ${className} justify-self-end cursor-pointer px-4 py-2 rounded-full shadow-md transition`}
       onClick={onClick}
     >
       {text}
