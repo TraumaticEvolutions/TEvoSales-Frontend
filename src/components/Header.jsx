@@ -1,23 +1,28 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { FiMenu } from "react-icons/fi";
 import { IoHome } from "react-icons/io5";
 import { ImExit } from "react-icons/im";
 import { GrUserNew } from "react-icons/gr";
-import { FaUserInjured } from "react-icons/fa";
+import { FaUserInjured, FaShoppingCart } from "react-icons/fa";
 import Sidebar from "./Sidebar";
 import logo from "../assets/TEvoLogo.svg";
 import { useAuth } from "../context/useAuth";
 
 /**
  * Componente Header del marketplace TEvoSales
+ * Muestra el logo, enlaces de navegación y opciones de usuario.
+ * Incluye un menú lateral para pantallas pequeñas.
+ *
+ * @component
  * @returns {JSX.Element}
  * @author Ángel Aragón
  */
 const Header = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const { user, logout } = useAuth();
-
+  const location = useLocation();
+  const isActive = (path) => location.pathname === path;
   return (
     <header className="bg-white shadow-sm px-4 py-3 flex justify-between items-center md:px-8 sticky top-0 z-50">
       <Link to="/" className="flex items-center gap-2">
@@ -25,12 +30,22 @@ const Header = () => {
       </Link>
 
       <nav className="hidden md:flex gap-8 text-gray-700 text-md font-medium tracking-wide">
-        <Link
-          to="/"
-          className="relative text-gray-700 hover:text-black font-semibold after:content-[''] after:absolute after:w-0 after:h-[2px] after:bottom-0 after:left-0 after:bg-black after:transition-all after:duration-600 hover:after:w-full flex items-center gap-2"
-        >
-          <IoHome /> Inicio
-        </Link>
+        {!isActive("/") && (
+          <Link
+            to="/"
+            className={`relative text-gray-700 hover:text-black font-semibold after:content-[''] after:absolute after:w-0 after:h-[2px] after:bottom-0 after:left-0 after:bg-black after:transition-all after:duration-600 hover:after:w-full flex items-center gap-2`}
+          >
+            <IoHome /> Inicio
+          </Link>
+        )}
+        {!isActive("/market") && (
+          <Link
+            to="/market"
+            className={`relative text-gray-700 hover:text-black font-semibold after:content-[''] after:absolute after:w-0 after:h-[2px] after:bottom-0 after:left-0 after:bg-black after:transition-all after:duration-600 hover:after:w-full flex items-center gap-2`}
+          >
+            <FaShoppingCart /> Mercado
+          </Link>
+        )}
         {user ? (
           <button
             onClick={logout}

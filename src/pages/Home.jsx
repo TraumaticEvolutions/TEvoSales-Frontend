@@ -4,6 +4,7 @@ import { randomProductsRequest } from "../services/api";
 import ProductCard from "../components/ProductCard";
 import { useEffect, useState } from "react";
 import Button from "../components/Button";
+import { useNavigate } from "react-router-dom";
 /**
  * Página principal del Marketplace
  *
@@ -11,6 +12,7 @@ import Button from "../components/Button";
  * @author Ángel Aragón
  */
 export default function Home() {
+  const navigate = useNavigate();
   const { user } = useAuth();
   const [products, setProducts] = useState([]);
   useEffect(() => {
@@ -42,10 +44,10 @@ export default function Home() {
           </div>
           <div className="mt-8 text-center">
             <Button
-              to="/products"
-              variant="primary"
               className="px-6 py-3 text-lg font-semibold"
               text="Ver todos los productos"
+              aria-label="Ver todos los productos"
+              onClick={() => navigate("/market")}
             />
           </div>
         </div>

@@ -21,11 +21,11 @@ export default function Pagination({ page, totalPages, onPageChange }) {
   };
 
   return (
-    <nav className="flex justify-center items-center gap-2 mt-8 select-none">
+    <nav className="flex justify-center items-center gap-2 mt-10 select-none">
       <button
         onClick={() => onPageChange(page - 1)}
         disabled={page === 0}
-        className="px-3 py-1 rounded border border-gray-300 bg-white text-gray-600 hover:bg-gray-100 transition disabled:opacity-50 disabled:cursor-not-allowed"
+        className="px-4 py-2 cursor-pointer rounded-lg border border-gray-300 bg-white text-cyan-700 font-semibold hover:bg-cyan-50 transition disabled:opacity-50 disabled:cursor-not-allowed shadow"
         aria-label="Página anterior"
       >
         &laquo;
@@ -34,11 +34,11 @@ export default function Pagination({ page, totalPages, onPageChange }) {
         <button
           key={num}
           onClick={() => onPageChange(num)}
-          className={`px-3 py-1 rounded border ${
+          className={`px-4 py-2 cursor-pointer rounded-lg border font-semibold shadow transition ${
             num === page
-              ? "bg-blue-600 text-white border-blue-600 font-semibold"
-              : "bg-white text-gray-700 border-gray-300 hover:bg-blue-50"
-          } transition`}
+              ? "bg-cyan-700 text-white border-cyan-700"
+              : "bg-white text-cyan-700 border-gray-300 hover:bg-cyan-50"
+          }`}
           aria-current={num === page ? "page" : undefined}
         >
           {num + 1}
@@ -47,7 +47,7 @@ export default function Pagination({ page, totalPages, onPageChange }) {
       <button
         onClick={() => onPageChange(page + 1)}
         disabled={page + 1 >= totalPages}
-        className="px-3 py-1 rounded border border-gray-300 bg-white text-gray-600 hover:bg-gray-100 transition disabled:opacity-50 disabled:cursor-not-allowed"
+        className="px-4 py-2 rounded-lg cursor-pointer border border-gray-300 bg-white text-cyan-700 font-semibold hover:bg-cyan-50 transition disabled:opacity-50 disabled:cursor-not-allowed shadow"
         aria-label="Página siguiente"
       >
         &raquo;

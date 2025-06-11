@@ -1,8 +1,8 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { FiX } from "react-icons/fi";
 import { IoHome } from "react-icons/io5";
 import { ImExit } from "react-icons/im";
-import { FaUserInjured } from "react-icons/fa";
+import { FaUserInjured, FaShoppingCart } from "react-icons/fa";
 import { GrUserNew } from "react-icons/gr";
 
 /**
@@ -13,6 +13,8 @@ import { GrUserNew } from "react-icons/gr";
  * @author Ángel Aragón
  */
 const Sidebar = ({ isOpen, onClose, user, logout }) => {
+  const location = useLocation();
+  const isActive = (path) => location.pathname === path;
   return (
     <div
       className={`fixed inset-0 z-50 transition-transform duration-300 ${
@@ -30,13 +32,24 @@ const Sidebar = ({ isOpen, onClose, user, logout }) => {
       </div>
 
       <nav className="flex flex-col gap-4 px-5 py-6 text-gray-700 font-medium">
-        <Link
-          to="/"
-          onClick={onClose}
-          className="hover:text-white hover:bg-gray-700 pl-5 p-2 transition rounded-xl flex items-center gap-2"
-        >
-          <IoHome /> Inicio
-        </Link>
+        {!isActive("/") && (
+          <Link
+            to="/"
+            onClick={onClose}
+            className="hover:text-white hover:bg-gray-700 pl-5 p-2 transition rounded-xl flex items-center gap-2"
+          >
+            <IoHome /> Inicio
+          </Link>
+        )}
+        {!isActive("/market") && (
+          <Link
+            to="/market"
+            onClick={onClose}
+            className="hover:text-white hover:bg-gray-700 pl-5 p-2 transition rounded-xl flex items-center gap-2"
+          >
+            <FaShoppingCart /> Mercado
+          </Link>
+        )}
         {user ? (
           <button
             onClick={() => {
