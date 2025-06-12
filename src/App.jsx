@@ -4,6 +4,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Register from "./pages/Register";
 import ProductsPage from "./pages/ProductsPage";
+import ProductDetail from "./pages/ProductDetail";
 import { Routes, Route } from "react-router-dom";
 import { BrowserRouter } from "react-router-dom";
 
@@ -22,6 +23,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/market" element={<ProductsPage />} />
+        <Route path="/products/:id" element={<ProductDetail />} />
       </Routes>
       <Footer />
     </BrowserRouter>

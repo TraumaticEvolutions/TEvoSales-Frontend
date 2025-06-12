@@ -38,7 +38,27 @@ export async function registerRequest(userData) {
   return response.data;
 }
 
+/**
+ * Obtiene todos los productos con paginación.
+ *
+ * @param {Object} params - Parámetros de consulta para la paginación y filtrado.
+ * @param {number} params.page - Número de página (0-indexed).
+ * @returns {Promise<Object>} La respuesta del servidor con los productos paginados.
+ * @author Ángel Aragón
+ */
 export async function allProductsRequest(params = {}) {
   const response = await axios.get(`${API_URL}/products/paged`, { params });
+  return response.data;
+}
+
+/**
+ * Obtiene un producto por su ID.
+ *
+ * @param {string} id - ID del producto a obtener.
+ * @returns {Promise<Object>} La respuesta del servidor con los datos del producto.
+ * @author Ángel Aragón
+ */
+export async function productByIdRequest(id) {
+  const response = await axios.get(`${API_URL}/products/${id}`);
   return response.data;
 }
