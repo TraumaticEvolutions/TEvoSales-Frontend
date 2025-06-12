@@ -197,11 +197,34 @@ export default function ProductDetail() {
                 bgColorHover="hover:bg-cyan-800"
                 txtColor="text-white"
                 onClick={() => {
-                  alert(
-                    `Has añadido ${quantity} unidad${
-                      quantity > 1 ? "es" : ""
-                    } al carrito`
+                  if (!user) return;
+                  // Obtener carrito actual de localStorage
+                  const stored = localStorage.getItem(`cart_${user.sub}`);
+                  let cart = stored ? JSON.parse(stored) : [];
+                  // Buscar si ya existe el producto en el carrito
+                  const idx = cart.findIndex((item) => item.id === product.id);
+                  if (idx !== -1) {
+                    // Si existe, sumar la cantidad (asegurando que ambas sean números)
+                    cart[idx].quantity =
+                      Number(cart[idx].quantity) + Number(quantity);
+                  } else {
+                    // Si no existe, añadirlo
+                    cart.push({
+                      id: product.id,
+                      name: product.name,
+                      price: product.price,
+                      imagePath: product.imagePath,
+                      brand: product.brand,
+                      quantity: Number(quantity),
+                    });
+                  }
+                  localStorage.setItem(
+                    `cart_${user.sub}`,
+                    JSON.stringify(cart)
                   );
+                  navigate("/cart", {
+                    state: { successCart: "Producto añadido al carrito" },
+                  });
                 }}
               />
             </div>
