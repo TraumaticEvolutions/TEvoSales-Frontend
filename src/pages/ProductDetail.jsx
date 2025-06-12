@@ -198,17 +198,13 @@ export default function ProductDetail() {
                 txtColor="text-white"
                 onClick={() => {
                   if (!user) return;
-                  // Obtener carrito actual de localStorage
                   const stored = localStorage.getItem(`cart_${user.sub}`);
                   let cart = stored ? JSON.parse(stored) : [];
-                  // Buscar si ya existe el producto en el carrito
                   const idx = cart.findIndex((item) => item.id === product.id);
                   if (idx !== -1) {
-                    // Si existe, sumar la cantidad (asegurando que ambas sean números)
                     cart[idx].quantity =
                       Number(cart[idx].quantity) + Number(quantity);
                   } else {
-                    // Si no existe, añadirlo
                     cart.push({
                       id: product.id,
                       name: product.name,
