@@ -16,7 +16,6 @@ export default function Cart() {
   const navigate = useNavigate();
   const location = useLocation();
   const [cart, setCart] = useState([]);
-
   const { user } = useAuth();
   console.log("User in Cart:", user);
   useEffect(() => {

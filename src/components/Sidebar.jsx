@@ -4,6 +4,7 @@ import { IoHome } from "react-icons/io5";
 import { ImExit } from "react-icons/im";
 import { FaUserInjured, FaShoppingCart } from "react-icons/fa";
 import { GrUserNew } from "react-icons/gr";
+import { BsCart4 } from "react-icons/bs";
 
 /**
  * Componente Sidebar para navegación mobile.
@@ -12,7 +13,7 @@ import { GrUserNew } from "react-icons/gr";
  * @returns {JSX.Element}
  * @author Ángel Aragón
  */
-const Sidebar = ({ isOpen, onClose, user, logout }) => {
+const Sidebar = ({ isOpen, onClose, user, logout, cartCount }) => {
   const location = useLocation();
   const isActive = (path) => location.pathname === path;
   return (
@@ -51,15 +52,29 @@ const Sidebar = ({ isOpen, onClose, user, logout }) => {
           </Link>
         )}
         {user ? (
-          <button
-            onClick={() => {
-              logout();
-              onClose();
-            }}
-            className="hover:text-white hover:bg-gray-700 pl-5 p-2 transition rounded-xl flex items-center gap-2"
-          >
-            <ImExit /> Cerrar sesión
-          </button>
+          <>
+            <button
+              onClick={() => {
+                logout();
+                onClose();
+              }}
+              className="hover:text-white hover:bg-gray-700 pl-5 p-2 transition rounded-xl flex items-center gap-2"
+            >
+              <ImExit /> Cerrar sesión
+            </button>
+            <Link
+              to="/cart"
+              onClick={onClose}
+              className="hover:text-white hover:bg-gray-700 pl-5 p-2 transition rounded-xl flex items-center gap-2 relative"
+            >
+              <BsCart4 /> Carrito
+              {cartCount > 0 && (
+                <span className="bg-cyan-600 text-white text-xs rounded-full  px-5 py-0.5 font-bold shadow">
+                  {cartCount}
+                </span>
+              )}
+            </Link>
+          </>
         ) : (
           <>
             <Link
