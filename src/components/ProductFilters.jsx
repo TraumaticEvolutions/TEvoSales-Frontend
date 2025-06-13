@@ -23,7 +23,7 @@ export default function ProductFilters({ filters, onChange }) {
           placeholder="Buscar por nombre"
           value={filters.name}
           onChange={onChange}
-          className="border border-gray-300 rounded-lg px-3 py-2 bg-[#eaf6ff] focus:outline-none focus:ring-2 focus:ring-primary"
+          className="border border-gray-300 rounded-lg px-3 py-2 bg-[#eaf6ff] focus:outline-none focus:ring-1 focus:ring-primary"
         />
       </div>
       <div className="flex flex-col w-full sm:w-48">
@@ -40,7 +40,7 @@ export default function ProductFilters({ filters, onChange }) {
           placeholder="Buscar por marca"
           value={filters.brand}
           onChange={onChange}
-          className="border border-gray-300 rounded-lg px-3 py-2 bg-[#eaf6ff] focus:outline-none focus:ring-2 focus:ring-primary"
+          className="border border-gray-300 rounded-lg px-3 py-2 bg-[#eaf6ff] focus:outline-none focus:ring-1 focus:ring-primary"
         />
       </div>
       <div className="flex flex-col w-full sm:w-48">
@@ -57,7 +57,7 @@ export default function ProductFilters({ filters, onChange }) {
           placeholder="Buscar por categoría"
           value={filters.category}
           onChange={onChange}
-          className="border border-gray-300 rounded-lg px-3 py-2 bg-[#eaf6ff] focus:outline-none focus:ring-2 focus:ring-primary"
+          className="border border-gray-300 rounded-lg px-3 py-2 bg-[#eaf6ff] focus:outline-none focus:ring-1 focus:ring-primary"
         />
       </div>
       <div className="flex flex-col w-full sm:w-48">
@@ -72,7 +72,7 @@ export default function ProductFilters({ filters, onChange }) {
           name="sort"
           value={filters.sort}
           onChange={onChange}
-          className="border border-gray-300 rounded-lg px-3 py-2 bg-[#eaf6ff] focus:outline-none focus:ring-2 focus:ring-primary"
+          className="border border-gray-300 rounded-lg px-3 py-2 bg-[#eaf6ff] focus:outline-none focus:ring-1 focus:ring-primary"
         >
           <option value="id,asc">Por defecto</option>
           <option value="price,asc">Precio: menor a mayor</option>

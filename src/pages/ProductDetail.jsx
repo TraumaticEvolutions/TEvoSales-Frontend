@@ -87,7 +87,7 @@ export default function ProductDetail() {
             </span>
           }
           onClick={() => navigate(-1)}
-          className="mb-8"
+          className="mb-8 shadow-lg"
           bgColor="bg-white/80"
           bgColorHover="hover:bg-cyan-100"
           txtColor="text-cyan-700"
@@ -101,7 +101,7 @@ export default function ProductDetail() {
                 "https://placehold.co/800?text=Placeholder+Image&font=playfair-display"
               }
               alt={product.name}
-              className="rounded-2xl shadow-lg object-cover min-w-72 min-h-72 max-w-150 max-h-150 bg-gray-100"
+              className="rounded-2xl object-cover min-w-72 min-h-72 max-w-150 max-h-150 bg-gray-100 border border-gray-200 shadow-lg transition-transform transform hover:scale-105"
             />
           </div>
 
@@ -183,7 +183,7 @@ export default function ProductDetail() {
                 min={1}
                 value={quantity}
                 onChange={handleQuantityChange}
-                className="w-20 px-3 py-2 rounded-lg border border-cyan-200 bg-[#eaf6ff] text-gray-700 focus:outline-none focus:ring-2 focus:ring-primary text-lg"
+                className="w-20 px-3 py-2 rounded-lg border border-gray-200 bg-[#eaf6ff] text-gray-700 focus:outline-none focus:ring-1 focus:ring-primary text-lg"
               />
             </div>
             <div className="mt-8">
@@ -218,9 +218,7 @@ export default function ProductDetail() {
                     `cart_${user.sub}`,
                     JSON.stringify(cart)
                   );
-                  navigate("/cart", {
-                    state: { successCart: "Producto añadido al carrito" },
-                  });
+                  navigate("/cart");
                 }}
               />
             </div>

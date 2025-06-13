@@ -3,6 +3,7 @@ import Button from "../components/Button";
 import { useNavigate, useLocation } from "react-router-dom";
 import { TbMoodSad, TbTrash } from "react-icons/tb";
 import { useAuth } from "../context/useAuth";
+import Modal from "../components/Modal";
 
 /**
  * Página del carrito de la compra.
@@ -17,7 +18,7 @@ export default function Cart() {
   const location = useLocation();
   const [cart, setCart] = useState([]);
   const { user } = useAuth();
-  console.log("User in Cart:", user);
+  const [modalOpen, setModalOpen] = useState(false);
   useEffect(() => {
     if (!user) {
       navigate("/login");
@@ -84,7 +85,7 @@ export default function Cart() {
                       item.imagePath || "https://placehold.co/60x60?text=IMG"
                     }
                     alt={item.name}
-                    className="w-20 h-20 sm:w-28 sm:h-28 rounded-xl object-cover bg-gray-100 border"
+                    className="w-20 h-20 sm:w-28 sm:h-28 rounded-xl object-cover bg-gray-100 border border-gray-200"
                   />
                   <div className="flex-1 w-full flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-6">
                     <div className="flex-1">
@@ -107,12 +108,12 @@ export default function Cart() {
                         onChange={(e) =>
                           handleQuantityChange(item.id, e.target.value)
                         }
-                        className="w-14 sm:w-20 px-2 py-1 rounded-lg border border-cyan-200 bg-[#eaf6ff] text-gray-700 focus:outline-none focus:ring-2 focus:ring-primary text-base"
+                        className="w-14 sm:w-20 px-2 py-1 rounded-lg border border-gray-200 bg-[#eaf6ff] text-gray-700 focus:outline-none focus:ring-1 focus:ring-primary text-base"
                       />
                     </div>
                     <Button
-                      text={<TbTrash className="inline-block" />}
-                      className="text-lg rounded-full"
+                      text={<TbTrash size={20} className="inline-block" />}
+                      className="text-lg rounded-full py-2.5"
                       bgColor="bg-red-100"
                       bgColorHover="hover:bg-red-200"
                       txtColor="text-red-700"
@@ -133,9 +134,35 @@ export default function Cart() {
                 bgColor="bg-emerald-600"
                 bgColorHover="hover:bg-emerald-700"
                 txtColor="text-white"
-                onClick={() => alert("Funcionalidad próximamente")}
+                onClick={() => setModalOpen(true)}
               />
             </div>
+            <Modal
+              open={modalOpen}
+              onClose={() => setModalOpen(false)}
+              title="Confirmar compra"
+              actions={
+                <>
+                  <Button
+                    text="Cancelar"
+                    onClick={() => setModalOpen(false)}
+                    bgColor="bg-gray-200"
+                    txtColor="text-gray-700"
+                  />
+                  <Button
+                    text="Confirmar"
+                    onClick={() => {
+                      // Aquí puedes poner la lógica de compra
+                      setModalOpen(false);
+                    }}
+                    bgColor="bg-emerald-600"
+                    txtColor="text-white"
+                  />
+                </>
+              }
+            >
+              <p>¿Estás seguro de que quieres finalizar la compra?</p>
+            </Modal>
           </>
         )}
       </div>

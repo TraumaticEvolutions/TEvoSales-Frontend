@@ -42,7 +42,7 @@ function Button({
       disabled={disabled}
       className={`${bgColor} ${bgColorHover} ${txtColor} ${className} ${
         disabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer"
-      } justify-self-end  px-4 py-2 rounded-full shadow-md transition`}
+      } justify-self-end  px-4 py-2 rounded-full transition`}
       onClick={onClick}
     >
       {text}
