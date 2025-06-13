@@ -121,6 +121,7 @@ export default function Login() {
             bgColorHover="hover:bg-cyan-500"
             txtColor="text-white"
             className="w-full py-2 text-lg font-semibold rounded-lg shadow transition"
+            ariaLabel={isLoading ? "Cargando..." : "Iniciar sesión"}
             text={isLoading ? "Cargando..." : "Iniciar sesión"}
           />
           <p className="mt-4 text-sm text-center text-gray-500">
@@ -133,6 +134,7 @@ export default function Login() {
             txtColor="text-cyan-700 hover:text-cyan-500"
             className=" w-full py-2 text-lg font-semibold rounded-lg shadow transition"
             text="Regístrate"
+            ariaLabel="Registrarse"
             onClick={() => navigate("/register")}
           />
         </form>

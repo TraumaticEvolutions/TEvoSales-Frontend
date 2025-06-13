@@ -4,11 +4,16 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { TbMoodSad, TbTrash } from "react-icons/tb";
 import { useAuth } from "../context/useAuth";
 import Modal from "../components/Modal";
+import { useForm } from "react-hook-form";
+import { newOrder } from "../services/api";
+import { FaCreditCard } from "react-icons/fa";
 
 /**
  * Página del carrito de la compra.
  * Muestra los productos añadidos al carrito, permite modificar cantidades y eliminar productos.
  * El carrito se almacena en localStorage y es solo para el usuario actual.
+ * Permite finalizar la compra y solicitar una orden con los datos de envío.
+ * Este componente utiliza `react-hook-form` para manejar el formulario de envío.
  *
  * @author Ángel Aragón
  * @returns {JSX.Element}
@@ -19,6 +24,34 @@ export default function Cart() {
   const [cart, setCart] = useState([]);
   const { user } = useAuth();
   const [modalOpen, setModalOpen] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = async (data) => {
+    const orderData = {
+      address: data.address,
+      number: data.number,
+      floor: data.floor,
+      postalCode: data.postalCode,
+      items: cart.map((item) => ({
+        productId: item.id,
+        quantity: item.quantity,
+      })),
+    };
+    newOrder(orderData).then(() => {
+      setCart([]);
+      localStorage.removeItem(`cart_${user.sub}`);
+      reset();
+      setModalOpen(false);
+      console.log("Compra realizada:", orderData);
+      navigate("/market");
+    });
+  };
+
   useEffect(() => {
     if (!user) {
       navigate("/login");
@@ -140,28 +173,142 @@ export default function Cart() {
             <Modal
               open={modalOpen}
               onClose={() => setModalOpen(false)}
-              title="Confirmar compra"
+              title={
+                <>
+                  <FaCreditCard className="inline-block mr-2 mb-1" />
+                  Confirmar compra
+                </>
+              }
               actions={
                 <>
                   <Button
                     text="Cancelar"
-                    onClick={() => setModalOpen(false)}
-                    bgColor="bg-gray-200"
+                    onClick={() => {
+                      setModalOpen(false);
+                      reset();
+                    }}
+                    bgColor="bg-gray-300"
+                    ariaLabel="Cancelar compra"
                     txtColor="text-gray-700"
                   />
                   <Button
                     text="Confirmar"
                     onClick={() => {
-                      // Aquí puedes poner la lógica de compra
-                      setModalOpen(false);
+                      handleSubmit(onSubmit)();
                     }}
                     bgColor="bg-emerald-600"
+                    ariaLabel="Confirmar compra"
                     txtColor="text-white"
                   />
                 </>
               }
             >
-              <p>¿Estás seguro de que quieres finalizar la compra?</p>
+              <form
+                onSubmit={handleSubmit(onSubmit)}
+                className="flex flex-col gap-4"
+              >
+                <input
+                  type="hidden"
+                  {...register("cartItems")}
+                  value={JSON.stringify(cart)}
+                />
+                <label className="font-medium text-gray-700" htmlFor="address">
+                  Dirección:
+                  <input
+                    {...register("address", {
+                      required: "La dirección es obligatoria",
+                    })}
+                    className={`mt-1 w-full border rounded px-3 py-2 focus:outline-none focus:ring-1 ${
+                      errors.address ? "border-red-600" : "border-gray-300"
+                    }`}
+                    id="address"
+                    placeholder="Calle Ejemplo"
+                  />
+                  {errors.address && (
+                    <span className="text-red-600 text-xs">
+                      {errors.address.message}
+                    </span>
+                  )}
+                </label>
+                <label className="font-medium text-gray-700" htmlFor="number">
+                  Número:
+                  <input
+                    {...register("number", {
+                      required: "El número es obligatorio",
+                    })}
+                    className={`mt-1 w-full border rounded px-3 py-2 focus:outline-none focus:ring-1 ${
+                      errors.number ? "border-red-600" : "border-gray-300"
+                    }`}
+                    placeholder="Ej: 4B"
+                    type="text"
+                    id="number"
+                  />
+                  {errors.number && (
+                    <span className="text-red-600 text-xs">
+                      {errors.number.message}
+                    </span>
+                  )}
+                </label>
+                <label className="font-medium text-gray-700" htmlFor="floor">
+                  Piso:
+                  <input
+                    {...register("floor")}
+                    className={`mt-1 w-full border rounded px-3 py-2 focus:outline-none focus:ring-1 ${
+                      errors.floor ? "border-red-600" : "border-gray-300"
+                    }`}
+                    placeholder="Ej: 2A"
+                    type="text"
+                    id="floor"
+                  />
+                </label>
+                <label
+                  className="font-medium text-gray-700"
+                  htmlFor="postalCode"
+                >
+                  Código Postal:
+                  <input
+                    {...register("postalCode", {
+                      required: "El código postal es obligatorio",
+                    })}
+                    className={`mt-1 w-full border rounded px-3 py-2 focus:outline-none focus:ring-1 ${
+                      errors.postalCode ? "border-red-600" : "border-gray-300"
+                    }`}
+                    placeholder="Ej: 28080"
+                    type="text"
+                    id="postalCode"
+                  />
+                  {errors.postalCode && (
+                    <span className="text-red-600 text-xs">
+                      {errors.postalCode.message}
+                    </span>
+                  )}
+                </label>
+                <label className="font-medium text-gray-700" htmlFor="card">
+                  Tarjeta de crédito/débito:
+                  <input
+                    {...register("card", {
+                      required: "La tarjeta es obligatoria",
+                      pattern: {
+                        value: /^[0-9]{16}$/,
+                        message: "Introduce 16 dígitos",
+                      },
+                    })}
+                    className={`mt-1 w-full border rounded px-3 py-2 focus:outline-none focus:ring-1 ${
+                      errors.card ? "border-red-600" : "border-gray-300"
+                    }`}
+                    placeholder="1234 5678 9012 3456"
+                    maxLength={16}
+                    inputMode="numeric"
+                    type="text"
+                    id="card"
+                  />
+                  {errors.card && (
+                    <span className="text-red-600 text-xs">
+                      {errors.card.message}
+                    </span>
+                  )}
+                </label>
+              </form>
             </Modal>
           </>
         )}

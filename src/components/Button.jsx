@@ -35,6 +35,7 @@ function Button({
   bgColorHover = "hover:bg-green-400",
   txtColor = "text-white",
   disabled = false,
+  ariaLabel = "Botón",
 }) {
   return (
     <button
@@ -43,6 +44,7 @@ function Button({
       className={`${bgColor} ${bgColorHover} ${txtColor} ${className} ${
         disabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer"
       } justify-self-end  px-4 py-2 rounded-full transition`}
+      aria-label={ariaLabel}
       onClick={onClick}
     >
       {text}

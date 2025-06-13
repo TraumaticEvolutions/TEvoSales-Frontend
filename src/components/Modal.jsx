@@ -21,7 +21,7 @@ export default function Modal({ open, onClose, title, children, actions }) {
       <div className="bg-white rounded-2xl shadow-2xl max-w-lg w-full p-6 relative animate-fade-in">
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-gray-400 hover:text-gray-700 text-2xl font-bold"
+          className="absolute cursor-pointer top-4 right-4 text-gray-400 hover:text-gray-700 text-2xl font-bold"
           aria-label="Cerrar"
         >
           <IoMdClose />

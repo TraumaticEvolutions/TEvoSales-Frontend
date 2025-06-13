@@ -196,6 +196,9 @@ export default function ProductDetail() {
                 bgColor="bg-cyan-700"
                 bgColorHover="hover:bg-cyan-800"
                 txtColor="text-white"
+                ariaLabel={
+                  !user ? "Iniciar sesión para comprar" : "Añadir al carrito"
+                }
                 onClick={() => {
                   if (!user) return;
                   const stored = localStorage.getItem(`cart_${user.sub}`);

@@ -3,7 +3,7 @@ import { allProductsRequest } from "../services/api";
 import ProductFilters from "../components/ProductFilters";
 import Pagination from "../components/Pagination";
 import ProductCard from "../components/ProductCard";
-import bg2 from "../assets/bg2.png"; // Ajusta la ruta si es necesario
+import bg2 from "../assets/bg2.png";
 
 export default function ProductsPage() {
   const [filters, setFilters] = useState({
@@ -51,7 +51,6 @@ export default function ProductsPage() {
 
   return (
     <div className="relative min-h-screen w-full overflow-x-hidden">
-      {/* Fondo con blur */}
       <div
         className="fixed inset-0 -z-10 bg-cover bg-center"
         style={{
@@ -60,7 +59,6 @@ export default function ProductsPage() {
         }}
         aria-hidden="true"
       />
-      {/* Capa de oscurecimiento sutil */}
       <div className="fixed inset-0 -z-10 bg-white/40" aria-hidden="true" />
 
       <div className="max-w-7xl mx-auto py-10 px-2">
