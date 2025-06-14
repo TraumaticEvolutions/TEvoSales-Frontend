@@ -7,6 +7,7 @@ import Modal from "../components/Modal";
 import { useForm } from "react-hook-form";
 import { newOrder } from "../services/api";
 import { FaCreditCard } from "react-icons/fa";
+import CartItem from "../components/CartItem";
 
 /**
  * Página del carrito de la compra.
@@ -109,51 +110,13 @@ export default function Cart() {
           <>
             <div className="flex flex-col gap-4">
               {cart.map((item) => (
-                <div
+                <CartItem
                   key={item.id}
-                  className="flex flex-col sm:flex-row items-center gap-3 sm:gap-6 bg-[#f3fbfd] rounded-xl p-4 sm:p-6 shadow"
-                >
-                  <img
-                    src={
-                      item.imagePath || "https://placehold.co/60x60?text=IMG"
-                    }
-                    alt={item.name}
-                    className="w-20 h-20 sm:w-28 sm:h-28 rounded-xl object-cover bg-gray-100 border border-gray-200"
-                  />
-                  <div className="flex-1 w-full flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-6">
-                    <div className="flex-1">
-                      <div className="font-semibold text-primary text-base sm:text-lg">
-                        {item.name}
-                      </div>
-                      <div className="text-xs text-gray-500">{item.brand}</div>
-                      <div className="text-cyan-700 font-bold text-lg mt-1">
-                        {item.price} €
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <label className="text-xs sm:text-sm text-gray-700">
-                        Unidades:
-                      </label>
-                      <input
-                        type="number"
-                        min={1}
-                        value={item.quantity}
-                        onChange={(e) =>
-                          handleQuantityChange(item.id, e.target.value)
-                        }
-                        className="w-14 sm:w-20 px-2 py-1 rounded-lg border border-gray-200 bg-[#eaf6ff] text-gray-700 focus:outline-none focus:ring-1 focus:ring-primary text-base"
-                      />
-                    </div>
-                    <Button
-                      text={<TbTrash size={20} className="inline-block" />}
-                      className="text-lg rounded-full py-2.5"
-                      bgColor="bg-red-100"
-                      bgColorHover="hover:bg-red-200"
-                      txtColor="text-red-700"
-                      onClick={() => handleRemove(item.id)}
-                    />
-                  </div>
-                </div>
+                  item={item}
+                  handleQuantityChange={handleQuantityChange}
+                  handleRemove={handleRemove}
+                  onClick={() => navigate(`/products/${item.id}`)}
+                />
               ))}
             </div>
             <div className="flex flex-col sm:flex-row justify-between items-center mt-8 gap-4">
