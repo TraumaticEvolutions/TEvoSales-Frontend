@@ -34,6 +34,34 @@ api.interceptors.request.use(
 );
 
 /**
+ * Interceptor de respuesta para manejar errores globales.
+ *
+ * Este interceptor se ejecuta después de cada respuesta y verifica si hay errores.
+ * Si el error es una respuesta 401 o 403, se realiza un logout global.
+ *
+ * @author Ángel Aragón
+ */
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (
+      error.response &&
+      (error.response.status === 401 || error.response.status === 403)
+    ) {
+      const errorMsg =
+        error.response.data?.error || error.response.data?.message || "";
+      if (
+        errorMsg === "TOKEN_EXPIRED" ||
+        errorMsg === "TOKEN_INVALID"
+      ) {
+        globalLogout();
+      }
+    }
+    return Promise.reject(error);
+  }
+);
+
+/**
  * Realiza una solicitud de inicio de sesión tipo POST.
  *
  *
@@ -104,4 +132,31 @@ export async function productByIdRequest(id) {
 export async function newOrder(orderData) {
   const response = await api.post(`${API_URL}/orders`, orderData);
   return response.data;
+}
+
+/**
+ * Obtiene los pedidos del usuario autenticado con paginación y filtros de fecha.
+ *
+ * @param {Object} params - Parámetros de consulta para la paginación y filtrado.
+ * @param {number} params.page - Número de página (0-indexed).
+ * @param {string} [params.from] - Fecha de inicio del filtro (formato ISO).
+ * @param {string} [params.to] - Fecha de fin del filtro (formato ISO).
+ * @returns {Promise<Object>} La respuesta del servidor con los pedidos paginados.
+ * @author Ángel Aragón
+ */
+export async function ordersRequest({ page = 0, startDate, endDate } = {}) {
+  const response = await api.get(`${API_URL}/orders/paged`, {
+    params: { page, startDate, endDate },
+  });
+  return response.data;
+}
+
+/**
+ * Realiza un logout global.
+ * Elimina el token del almacenamiento local y redirige al usuario a la página de inicio de sesión.
+ * @author Ángel Aragón
+ */
+function globalLogout() {
+  localStorage.removeItem("token");
+  window.location.href = "/login";
 }
