@@ -5,7 +5,7 @@ import { IoHome } from "react-icons/io5";
 import { ImExit } from "react-icons/im";
 import { BsCart4 } from "react-icons/bs";
 import { GrUserNew } from "react-icons/gr";
-import { FaUserInjured, FaShoppingCart } from "react-icons/fa";
+import { FaUserInjured, FaShoppingCart, FaBoxOpen } from "react-icons/fa";
 import Sidebar from "./Sidebar";
 import logo from "../assets/TEvoLogo.svg";
 import { useAuth } from "../context/useAuth";
@@ -63,6 +63,12 @@ const Header = () => {
         )}
         {user ? (
           <>
+            <Link
+              to="/orders"
+              className="relative text-gray-700 hover:text-black font-semibold after:content-[''] after:absolute after:w-0 after:h-[2px] after:bottom-0 after:left-0 after:bg-black after:transition-all after:duration-600 hover:after:w-full flex items-center gap-2"
+            >
+              <FaBoxOpen /> Mis pedidos
+            </Link>
             <button
               onClick={logout}
               className="relative text-gray-700 hover:text-black font-semibold after:content-[''] after:absolute after:w-0 after:h-[2px] after:bottom-0 after:left-0 after:bg-black after:transition-all after:duration-600 hover:after:w-full flex items-center gap-2"

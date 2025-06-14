@@ -9,6 +9,14 @@
 export default function Pagination({ page, totalPages, onPageChange }) {
   if (totalPages <= 1) return null;
 
+  /**
+   * Calcula un rango de páginas centrado alrededor de la página actual.
+   * Muestra un máximo de 5 números de página, ajustando el inicio y el fin según sea necesario.
+   * Si hay menos de 5 páginas, muestra todas.
+   *
+   * @returns {number[]} Array de números de página a mostrar.
+   *
+   */
   const getPageNumbers = () => {
     const max = Math.min(5, totalPages);
     let start = Math.max(0, page - Math.floor(max / 2));

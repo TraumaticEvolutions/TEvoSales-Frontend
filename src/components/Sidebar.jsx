@@ -2,7 +2,7 @@ import { Link, useLocation } from "react-router-dom";
 import { FiX } from "react-icons/fi";
 import { IoHome } from "react-icons/io5";
 import { ImExit } from "react-icons/im";
-import { FaUserInjured, FaShoppingCart } from "react-icons/fa";
+import { FaUserInjured, FaShoppingCart, FaBoxOpen } from "react-icons/fa";
 import { GrUserNew } from "react-icons/gr";
 import { BsCart4 } from "react-icons/bs";
 
@@ -53,6 +53,13 @@ const Sidebar = ({ isOpen, onClose, user, logout, cartCount }) => {
         )}
         {user ? (
           <>
+            <Link
+              to="/orders"
+              onClick={onClose}
+              className="hover:text-white hover:bg-gray-700 pl-5 p-2 transition rounded-xl flex items-center gap-2"
+            >
+              <FaBoxOpen /> Mis órdenes
+            </Link>
             <button
               onClick={() => {
                 logout();
