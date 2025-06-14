@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useAuth } from "../context/useAuth";
 import { useNavigate } from "react-router-dom";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
@@ -23,7 +22,6 @@ import { ordersRequest } from "../services/api";
  * @returns {JSX.Element}
  */
 export default function MyOrders() {
-  const { user } = useAuth();
   const navigate = useNavigate();
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -32,10 +30,6 @@ export default function MyOrders() {
   const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
-    if (!user) {
-      navigate("/login");
-      return;
-    }
     setLoading(true);
     ordersRequest({
       page,
@@ -47,7 +41,7 @@ export default function MyOrders() {
         setTotalPages(data.totalPages);
       })
       .finally(() => setLoading(false));
-  }, [user, navigate, page, dateFilter]);
+  }, [navigate, page, dateFilter]);
 
   const handleDateFilter = (filter) => {
     setDateFilter(filter);

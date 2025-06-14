@@ -11,6 +11,7 @@ import { Routes, Route } from "react-router-dom";
 import { BrowserRouter } from "react-router-dom";
 import AdminDashboard from "./pages/AdminDashboard";
 import AdminRoute from "./routes/AdminRoute";
+import PrivateRoute from "./routes/PrivateRoute";
 
 /**
  * Componente principal de la aplicación
@@ -28,8 +29,11 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/market" element={<ProductsPage />} />
         <Route path="/products/:id" element={<ProductDetail />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/orders" element={<MyOrders />} />
+        <Route path="/cart" element={<PrivateRoute children={<Cart />} />} />
+        <Route
+          path="/orders"
+          element={<PrivateRoute children={<MyOrders />} />}
+        />
         <Route
           path="*"
           element={
@@ -38,11 +42,7 @@ function App() {
         />
         <Route
           path="/admin/"
-          element={
-            <AdminRoute>
-              <AdminDashboard />
-            </AdminRoute>
-          }
+          element={<AdminRoute children={<AdminDashboard />} />}
         />
       </Routes>
       <Footer />

@@ -54,10 +54,6 @@ export default function Cart() {
   };
 
   useEffect(() => {
-    if (!user) {
-      navigate("/login");
-      return;
-    }
     const stored = localStorage.getItem(`cart_${user.sub}`);
     setCart(stored ? JSON.parse(stored) : []);
   }, [user, location.key, navigate]);
