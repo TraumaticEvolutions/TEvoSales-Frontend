@@ -17,7 +17,7 @@ export default function Modal({ open, onClose, title, children, actions }) {
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+    <article className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
       <div className="bg-white rounded-2xl shadow-2xl max-w-lg w-full p-6 relative animate-fade-in">
         <button
           onClick={onClose}
@@ -32,7 +32,7 @@ export default function Modal({ open, onClose, title, children, actions }) {
         <div className="mb-6">{children}</div>
         {actions && <div className="flex justify-end gap-2">{actions}</div>}
       </div>
-    </div>
+    </article>
   );
 }
 

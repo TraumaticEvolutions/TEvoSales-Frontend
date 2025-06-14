@@ -62,7 +62,7 @@ export default function ProductDetail() {
 
   if (!product) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-[#a7e8f2] via-[#ebfcff] to-white">
+      <section className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-[#a7e8f2] via-[#ebfcff] to-white">
         <Button
           text={
             <span className="flex items-center gap-2">
@@ -72,13 +72,13 @@ export default function ProductDetail() {
           onClick={() => navigate(-1)}
           className="mb-8"
         />
-        <ErrorMsg message="Producto no encontrado" />
-      </div>
+        <ErrorMsg>Producto no encontrado</ErrorMsg>
+      </section>
     );
   }
 
   return (
-    <div className="relative min-h-screen w-full overflow-x-hidden bg-gradient-to-br from-[#a7e8f2] via-[#ebfcff] to-white py-10 px-2">
+    <section className="relative min-h-screen w-full overflow-x-hidden bg-gradient-to-br from-[#a7e8f2] via-[#ebfcff] to-white py-10 px-2">
       <div className="max-w-3xl mx-auto">
         <Button
           text={
@@ -93,7 +93,7 @@ export default function ProductDetail() {
           txtColor="text-cyan-700"
         />
 
-        <div className="rounded-3xl bg-white/90 shadow-2xl p-6 md:p-10 backdrop-blur-md flex flex-col md:flex-row gap-10 items-center">
+        <article className="rounded-3xl bg-white/90 shadow-2xl p-6 md:p-10 backdrop-blur-md flex flex-col md:flex-row gap-10 items-center">
           <div className="flex-shrink-0 w-full md:w-80 flex justify-center items-center">
             <img
               src={
@@ -226,8 +226,8 @@ export default function ProductDetail() {
               />
             </div>
           </div>
-        </div>
+        </article>
       </div>
-    </div>
+    </section>
   );
 }

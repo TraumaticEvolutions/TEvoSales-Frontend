@@ -55,7 +55,7 @@ export default function MyOrders() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#a7e8f2] via-[#ebfcff] to-white py-10 px-2">
+    <section className="min-h-screen bg-gradient-to-br from-[#a7e8f2] via-[#ebfcff] to-white py-10 px-2">
       <h1 className="text-4xl font-bold text-primary mb-8 text-center drop-shadow">
         <FaBoxOpen className="inline-block mr-2 mb-1" />
         Mis pedidos
@@ -191,6 +191,6 @@ export default function MyOrders() {
           )}
         </div>
       </div>
-    </div>
+    </section>
   );
 }

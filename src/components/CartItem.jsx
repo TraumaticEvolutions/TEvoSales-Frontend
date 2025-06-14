@@ -23,7 +23,7 @@ export default function CartItem({
 }) {
   return (
     <>
-      <div
+      <article
         key={item.id}
         onClick={onClick}
         role="button"
@@ -69,7 +69,7 @@ export default function CartItem({
             }}
           />
         </div>
-      </div>
+      </article>
     </>
   );
 }

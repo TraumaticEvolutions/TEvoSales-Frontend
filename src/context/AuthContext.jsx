@@ -11,6 +11,7 @@ const AuthContext = createContext();
  * @param {*} param0.children
  * @returns {JSX.Element}
  * @description Este componente envuelve a sus hijos con el contexto de autenticación, proporcionando acceso a la información del usuario y funciones de inicio y cierre de sesión.
+ * @author Ángel Aragón
  */
 export function AuthProvider({ children }) {
   const [token, setToken] = useState(() => localStorage.getItem("token"));

@@ -61,7 +61,7 @@ export default function ProductsPage() {
       />
       <div className="fixed inset-0 -z-10 bg-white/40" aria-hidden="true" />
 
-      <div className="max-w-7xl mx-auto py-10 px-2">
+      <section className="max-w-7xl mx-auto py-10 px-2">
         <h1 className="text-4xl md:text-5xl font-bold mb-8 text-center text-primary drop-shadow-lg">
           Catálogo de Productos
         </h1>
@@ -96,7 +96,7 @@ export default function ProductsPage() {
             </>
           )}
         </div>
-      </div>
+      </section>
     </div>
   );
 }

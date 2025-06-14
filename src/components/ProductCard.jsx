@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 /**
  * Componente visual que representa una tarjeta de producto en el marketplace.
@@ -17,10 +17,13 @@ import { Link } from "react-router-dom";
  * @returns {JSX.Element}
  */
 const ProductCard = ({ product }) => {
+  const navigate = useNavigate();
   return (
-    <Link
-      to={`/products/${product.id}`}
-      className="group relative bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300"
+    <article
+      key={product.id}
+      onClick={() => navigate(`/products/${product.id}`)}
+      aria-label="Ver detalles del producto"
+      className="group relative bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 cursor-pointer"
     >
       <div
         className="relative h-80 bg-cover bg-center"
@@ -46,7 +49,7 @@ const ProductCard = ({ product }) => {
           {product.price.toFixed(2)} €
         </p>
       </div>
-    </Link>
+    </article>
   );
 };
 

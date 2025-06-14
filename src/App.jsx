@@ -9,6 +9,8 @@ import ProductsPage from "./pages/ProductsPage";
 import ProductDetail from "./pages/ProductDetail";
 import { Routes, Route } from "react-router-dom";
 import { BrowserRouter } from "react-router-dom";
+import AdminDashboard from "./pages/AdminDashboard";
+import AdminRoute from "./routes/AdminRoute";
 
 /**
  * Componente principal de la aplicación
@@ -28,6 +30,20 @@ function App() {
         <Route path="/products/:id" element={<ProductDetail />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/orders" element={<MyOrders />} />
+        <Route
+          path="*"
+          element={
+            <h1 className="text-center text-2xl">Página no encontrada</h1>
+          }
+        />
+        <Route
+          path="/admin/"
+          element={
+            <AdminRoute>
+              <AdminDashboard />
+            </AdminRoute>
+          }
+        />
       </Routes>
       <Footer />
     </BrowserRouter>

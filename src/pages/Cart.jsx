@@ -85,7 +85,7 @@ export default function Cart() {
   const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#a7e8f2] via-[#ebfcff] to-white py-10 px-2">
+    <section className="min-h-screen bg-gradient-to-br from-[#a7e8f2] via-[#ebfcff] to-white py-10 px-2">
       <div className="max-w-3xl mx-auto">
         <h1 className="text-4xl font-bold text-primary mb-8 text-center drop-shadow">
           Carrito de la compra
@@ -276,6 +276,6 @@ export default function Cart() {
           </>
         )}
       </div>
-    </div>
+    </section>
   );
 }

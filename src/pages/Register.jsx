@@ -52,7 +52,7 @@ export default function Register() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#a7e8f2] via-[#ebfcff] to-white">
+    <section className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#a7e8f2] via-[#ebfcff] to-white">
       <div className="mb-10 mt-10 bg-white/90 shadow-xl rounded-2xl p-8 w-full max-w-md border border-[#e0f2fe]">
         <div className="flex flex-col items-center mb-6">
           <img src={iconTEVO} alt="Logo" className="w-16 h-16 mb-2" />
@@ -240,6 +240,6 @@ export default function Register() {
           />
         </form>
       </div>
-    </div>
+    </section>
   );
 }
