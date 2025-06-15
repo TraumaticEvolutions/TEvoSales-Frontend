@@ -8,14 +8,39 @@ import ListItemText from "@mui/material/ListItemText";
 import Checkbox from "@mui/material/Checkbox";
 import Typography from "@mui/material/Typography";
 
+/**
+ * Filtra los elementos de `a` que no están en `b` del MuiComponent.
+ * @param {Array} a
+ * @param {Array} b
+ * @returns {Array}
+ */
 function not(a, b) {
   return a.filter((value) => b.indexOf(value) === -1);
 }
 
+/**
+ * Encuentra la intersección entre dos arrays.
+ * @param {Array} a
+ * @param {Array} b
+ * @returns {Array}
+ */
 function intersection(a, b) {
   return a.filter((value) => b.indexOf(value) !== -1);
 }
 
+/**
+ * Componente MUI TransferList que permite transferir elementos entre dos listas.
+ * @param {Object} props
+ * @param {Array} props.left - Lista de elementos disponibles.
+ * @param {Array} props.right - Lista de elementos asignados.
+ * @param {Function} props.setLeft - Función para actualizar la lista de elementos disponibles.
+ * @param {Function} props.setRight - Función para actualizar la lista de elementos asignados.
+ * @param {string} [props.leftTitle="Disponibles"] - Título de la lista de elementos disponibles.
+ * @param {string} [props.rightTitle="Asignados"] - Título de la lista de elementos asignados.
+ * @param {Function} [props.renderItem] - Función para renderizar cada elemento de la lista.
+ * @returns {JSX.Element}
+ * @author Ángel Aragón
+ */
 export default function TransferList({
   left,
   right,

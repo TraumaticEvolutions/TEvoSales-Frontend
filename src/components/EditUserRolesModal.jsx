@@ -2,10 +2,22 @@ import { useState, useEffect } from "react";
 import Modal from "./Modal";
 import Button from "./Button";
 import TransferList from "./TransferList";
+import PropTypes from "prop-types";
 
 const ROLE_CLIENTE = "ROLE_CLIENTE";
 const ROLE_ADMIN = "ROLE_ADMIN";
 
+/**
+ * Componente Modal para editar los roles de un usuario.
+ * @param {Object} param0
+ * @param {boolean} param0.open - Si el modal está abierto.
+ * @param {Function} param0.onClose - Función para cerrar el modal.
+ * @param {Object} param0.user - Usuario a editar.
+ * @param {Array} param0.allRoles - Todos los roles disponibles.
+ * @param {Function} param0.onSave - Función para guardar los cambios.
+ * @returns {JSX.Element}
+ * @author Ángel Aragón
+ */
 export default function EditUserRolesModal({
   open,
   onClose,
@@ -98,3 +110,21 @@ export default function EditUserRolesModal({
     </Modal>
   );
 }
+
+/**
+ * PropTypes para el componente EditUserRolesModal.
+ * @type {Object}
+ * @param {boolean} open - Si el modal está abierto.
+ * @param {Function} onClose - Función para cerrar el modal.
+ * @param {Object} user - Usuario a editar.
+ * @param {Array} allRoles - Todos los roles disponibles.
+ * @param {Function} onSave - Función para guardar los cambios.
+ * @author Ángel Aragón
+ */
+EditUserRolesModal.propTypes = {
+  open: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired,
+  allRoles: PropTypes.arrayOf(PropTypes.object).isRequired,
+  onSave: PropTypes.func.isRequired,
+};

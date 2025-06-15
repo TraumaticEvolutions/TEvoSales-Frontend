@@ -4,7 +4,6 @@ import List from "../components/List";
 import Pagination from "../components/Pagination";
 import Modal from "../components/Modal";
 import Button from "../components/Button";
-import Back from "../components/Back";
 import {
   getUsersRequest,
   getRolesRequest,
@@ -14,6 +13,13 @@ import {
 import { FaEdit, FaTrash } from "react-icons/fa";
 import EditUserRolesModal from "../components/EditUserRolesModal";
 
+/**
+ * Componente para la administración de usuarios.
+ * * Permite filtrar, editar y eliminar usuarios.
+ * * Utiliza componentes como `Filter`, `List`, `Pagination` y `Modal` para la UI.
+ * @author Ángel Aragón
+ * @returns {JSX.Element}
+ */
 export default function AdminUsers() {
   const [filters, setFilters] = useState({
     username: "",

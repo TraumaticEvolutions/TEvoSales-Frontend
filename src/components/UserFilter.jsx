@@ -1,6 +1,17 @@
 import { useState, useEffect } from "react";
-
-export default function Filters({
+import PropTypes from "prop-types";
+/**
+ * Componente para filtrar usuarios por diferentes criterios.
+ * Permite filtrar por nombre de usuario, email, NIF y rol.
+ * @param {Object} props
+ * @param {Object} props.filters - Filtros actuales.
+ * @param {Function} props.onChange - Función que se llama al cambiar los filtros.
+ * @param {Array} [props.roleOptions] - Opciones de roles para el filtro de rol.
+ * @param {boolean} [props.showRole=false] - Si se muestra el filtro de rol.
+ * @returns {JSX.Element}
+ * @author Ángel Aragón
+ */
+export default function UserFilter({
   filters,
   onChange,
   roleOptions = [],
@@ -68,3 +79,29 @@ export default function Filters({
     </form>
   );
 }
+
+/**
+ * PropTypes para UserFilter
+ * @typedef {Object} UserFilterProps
+ * @property {Object} filters - Filtros actuales.
+ * @property {Function} onChange - Función que se llama al cambiar los filtros.
+ * @property {Array<{ id: number, name: string }>} [roleOptions] - Opciones de roles para el filtro de rol.
+ * @property {boolean} [showRole=false] - Si se muestra el filtro de rol.
+ * @author Ángel Aragón
+ */
+UserFilter.propTypes = {
+  filters: PropTypes.shape({
+    username: PropTypes.string,
+    email: PropTypes.string,
+    nif: PropTypes.string,
+    role: PropTypes.string,
+  }),
+  onChange: PropTypes.func.isRequired,
+  roleOptions: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+    })
+  ),
+  showRole: PropTypes.bool,
+};

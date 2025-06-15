@@ -1,3 +1,12 @@
+import PropTypes from "prop-types";
+/**
+ * Componente para mostrar una lista en formato tabla.
+ * @param {Object[]} columns - Array de objetos que definen las columnas de la tabla.
+ * @param {Object[]} data - Array de objetos que representan las filas de la tabla.
+ * @param {Function} [rowProps] - Función opcional para definir propiedades adicionales de cada fila.
+ * @returns {JSX.Element}
+ * @author Ángel Aragón
+ */
 export default function List({ columns, data, rowProps }) {
   return (
     <div className="overflow-x-auto w-full max-w-5xl mx-auto bg-white rounded-2xl shadow-lg">
@@ -40,3 +49,23 @@ export default function List({ columns, data, rowProps }) {
     </div>
   );
 }
+
+/**
+ * PropTypes para el componente List
+ * @typedef {Object} ListProps
+ * @property {Array<{ key: string, label: string, render?: function }>} columns - Definición de las columnas de la tabla.
+ * @property {Array<Object>} data - Datos a mostrar en la tabla.
+ * @property {function} [rowProps] - Función opcional para definir propiedades adicionales de cada fila.
+ * @author Ángel Aragón
+ */
+List.propTypes = {
+  columns: PropTypes.arrayOf(
+    PropTypes.shape({
+      key: PropTypes.string.isRequired,
+      label: PropTypes.string.isRequired,
+      render: PropTypes.func,
+    })
+  ).isRequired,
+  data: PropTypes.arrayOf(PropTypes.object).isRequired,
+  rowProps: PropTypes.func,
+};

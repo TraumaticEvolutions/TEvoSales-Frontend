@@ -1,5 +1,17 @@
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
+/**
+ * Componente para mostrar una tarjeta en el panel de administración.
+ * @param {Object} param0
+ * @param {JSX.Element} param0.icon - Icono de la tarjeta.
+ * @param {string} param0.title - Título de la tarjeta.
+ * @param {string} param0.description - Descripción de la tarjeta.
+ * @param {string} param0.to - Ruta a la que redirige la tarjeta.
+ * @param {boolean} [param0.disabled=false] - Si la tarjeta está deshabilitada.
+ * @returns {JSX.Element}
+ * @author Ángel Aragón
+ */
 export default function AdminDashboardCard({
   icon,
   title,
@@ -26,3 +38,24 @@ export default function AdminDashboardCard({
 
   return disabled ? <div>{content}</div> : <Link to={to}>{content}</Link>;
 }
+
+/**
+ * PropTypes para AdminDashboardCard
+ * @typedef {Object} AdminDashboardCardProps
+ * @property {JSX.Element} icon - Icono de la tarjeta.
+ * @property {string} title - Título de la tarjeta.
+ * @property {string} description - Descripción de la tarjeta.
+ * @property {string} to - Ruta a la que redirige la tarjeta.
+ * @property {boolean} [disabled] - Si la tarjeta está deshabilitada.
+ * @author Ángel Aragón
+ */
+AdminDashboardCard.propTypes = {
+  icon: PropTypes.element.isRequired,
+  title: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  to: PropTypes.string.isRequired,
+  disabled: PropTypes.bool,
+};
+AdminDashboardCard.defaultProps = {
+  disabled: false,
+};

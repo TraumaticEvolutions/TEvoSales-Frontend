@@ -8,6 +8,13 @@ import { AiFillProduct } from "react-icons/ai";
 import AdminDashboardCard from "../components/AdminDashboardCard";
 import { LuScrollText } from "react-icons/lu";
 
+/**
+ * Componente del panel de administración.
+ * Muestra tarjetas con enlaces a diferentes secciones administrativas.
+ * Incluye estadísticas, gestión de usuarios, pedidos, productos, roles y proveedores.
+ * @author Ángel Aragón
+ * @returns {JSX.Element}
+ */
 export default function AdminDashboard() {
   return (
     <section className="min-h-[100vh] py-10 px-2 bg-gradient-to-br from-[#a7e8f2] via-[#ebfcff] to-white flex flex-col items-center">
