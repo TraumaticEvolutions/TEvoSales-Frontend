@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { productByIdRequest } from "../services/api";
 import ErrorMsg from "../components/ErrorMsg";
 import Button from "../components/Button";
-import { IoArrowBack } from "react-icons/io5";
+import Back from "../components/Back";
 import { useAuth } from "../context/useAuth";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
@@ -80,19 +80,7 @@ export default function ProductDetail() {
   return (
     <section className="relative min-h-screen w-full overflow-x-hidden bg-gradient-to-br from-[#a7e8f2] via-[#ebfcff] to-white py-10 px-2">
       <div className="max-w-3xl mx-auto">
-        <Button
-          text={
-            <span className="flex items-center gap-2">
-              <IoArrowBack /> Volver
-            </span>
-          }
-          onClick={() => navigate(-1)}
-          className="mb-8 shadow-lg"
-          bgColor="bg-white/80"
-          bgColorHover="hover:bg-cyan-100"
-          txtColor="text-cyan-700"
-        />
-
+        <Back />
         <article className="rounded-3xl bg-white/90 shadow-2xl p-6 md:p-10 backdrop-blur-md flex flex-col md:flex-row gap-10 items-center">
           <div className="flex-shrink-0 w-full md:w-80 flex justify-center items-center">
             <img

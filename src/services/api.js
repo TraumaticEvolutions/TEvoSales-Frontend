@@ -50,10 +50,7 @@ api.interceptors.response.use(
     ) {
       const errorMsg =
         error.response.data?.error || error.response.data?.message || "";
-      if (
-        errorMsg === "TOKEN_EXPIRED" ||
-        errorMsg === "TOKEN_INVALID"
-      ) {
+      if (errorMsg === "TOKEN_EXPIRED" || errorMsg === "TOKEN_INVALID") {
         globalLogout();
       }
     }
@@ -106,7 +103,7 @@ export async function registerRequest(userData) {
  * @author Ángel Aragón
  */
 export async function allProductsRequest(params = {}) {
-  const response = await api.get(`${API_URL}/products/paged`, { params });
+  const response = await api.get(`${API_URL}/products`, { params });
   return response.data;
 }
 
@@ -145,9 +142,36 @@ export async function newOrder(orderData) {
  * @author Ángel Aragón
  */
 export async function ordersRequest({ page = 0, startDate, endDate } = {}) {
-  const response = await api.get(`${API_URL}/orders/paged`, {
+  const response = await api.get(`${API_URL}/orders`, {
     params: { page, startDate, endDate },
   });
+  return response.data;
+}
+/**
+ * Obtiene los usuarios del sistema con paginación y filtros.
+ *
+ * @param {Object} params - Parámetros de consulta para la paginación y filtrado.
+ * @param {number} params.page - Número de página (0-indexed).
+ * @param {string} [params.username] - Filtro por nombre de usuario.
+ * @param {string} [params.email] - Filtro por email.
+ * @param {string} [params.nif] - Filtro por NIF.
+ * @param {string} [params.role] - Filtro por rol.
+ * @returns {Promise<Object>} La respuesta del servidor con los usuarios paginados.
+ * @author Ángel Aragón
+ */
+export async function getUsersRequest(params = {}) {
+  const response = await api.get(`/users`, { params });
+  return response.data;
+}
+
+/**
+ * Obtiene los roles disponibles en el sistema.
+ *
+ * @returns {Promise<Object[]>} Una promesa que resuelve con un array de roles.
+ * @author Ángel Aragón
+ */
+export async function getRolesRequest() {
+  const response = await api.get(`/roles`);
   return response.data;
 }
 
@@ -159,4 +183,27 @@ export async function ordersRequest({ page = 0, startDate, endDate } = {}) {
 function globalLogout() {
   localStorage.removeItem("token");
   window.location.href = "/login";
+}
+
+/**
+ * Actualiza los roles de un usuario.
+ * @param {string} userId - ID del usuario a actualizar.
+ * @param {Array<string>} roles - Nuevos roles a asignar al usuario.
+ * @returns {Promise<Object>} La respuesta del servidor con los datos del usuario actualizado.
+ * @author Ángel Aragón
+ */
+export async function updateUserRoles(userId, roles) {
+  return api.put(`/users/roles/${userId}`, roles, {
+    headers: { "Content-Type": "application/json" },
+  });
+}
+
+/**
+ * Elimina un usuario del sistema.
+ * @param {string} userId - ID del usuario a eliminar.
+ * @returns {Promise<void>} Una promesa que se resuelve cuando el usuario ha sido eliminado.
+ * @author Ángel Aragón
+ */
+export async function deleteUser(userId) {
+  return api.delete(`/users/${userId}`);
 }

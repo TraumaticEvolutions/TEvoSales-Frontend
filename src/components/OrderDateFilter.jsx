@@ -4,12 +4,13 @@ import PropTypes from "prop-types";
  * Componente para filtrar pedidos por fecha.
  * @param {Object} props
  * @param {function} props.onFilter Cambia el filtro, recibe {from, to}
+ * @returns {JSX.Element}
+ * @author Ángel Aragón
  */
 export default function OrderDateFilter({ onFilter }) {
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
 
-  // Formatea la fecha para la API
   const formatDateForApi = (date, end = false) => {
     if (!date) return undefined;
     return `${date}T${end ? "23:59:59" : "00:00:00"}`;
@@ -18,7 +19,6 @@ export default function OrderDateFilter({ onFilter }) {
   const handleChange = (type, value) => {
     if (type === "from") setFrom(value);
     if (type === "to") setTo(value);
-    // Llama a onFilter con las fechas formateadas
     onFilter({
       from: formatDateForApi(type === "from" ? value : from),
       to: formatDateForApi(type === "to" ? value : to, true),

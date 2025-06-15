@@ -12,6 +12,7 @@ import { BrowserRouter } from "react-router-dom";
 import AdminDashboard from "./pages/AdminDashboard";
 import AdminRoute from "./routes/AdminRoute";
 import PrivateRoute from "./routes/PrivateRoute";
+import AdminUsers from "./pages/AdminUsers";
 
 /**
  * Componente principal de la aplicación
@@ -43,6 +44,10 @@ function App() {
         <Route
           path="/admin/"
           element={<AdminRoute children={<AdminDashboard />} />}
+        />
+        <Route
+          path="/admin/users"
+          element={<AdminRoute children={<AdminUsers />} />}
         />
       </Routes>
       <Footer />

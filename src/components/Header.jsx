@@ -44,7 +44,7 @@ const Header = () => {
         <img src={logo} alt="TEvoSales Logo" className="h-15 w-auto" />
       </Link>
 
-      <nav className="hidden md:flex gap-8 text-gray-700 text-md font-medium tracking-wide">
+      <nav className="hidden lg:flex gap-8 text-gray-700 text-md font-medium tracking-wide">
         {!isActive("/") && (
           <Link
             to="/"
@@ -106,7 +106,7 @@ const Header = () => {
       </nav>
 
       <button
-        className="md:hidden text-gray-600 text-2xl cursor-pointer"
+        className="lg:hidden text-gray-600 text-2xl cursor-pointer"
         onClick={() => setIsSidebarOpen(true)}
         aria-label="Abrir menú"
       >
