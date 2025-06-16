@@ -16,7 +16,9 @@ export default function List({ columns, data, rowProps }) {
             {columns.map((col) => (
               <th
                 key={col.key}
-                className="px-4 py-3 text-left text-xs font-semibold text-cyan-700 uppercase tracking-wider"
+                className={`px-4 py-3 text-left text-xs font-semibold text-cyan-700 uppercase tracking-wider ${
+                  col.className || ""
+                }`}
               >
                 {col.label}
               </th>
@@ -37,7 +39,12 @@ export default function List({ columns, data, rowProps }) {
             data.map((row) => (
               <tr key={row.id} {...(rowProps ? rowProps(row) : {})}>
                 {columns.map((col) => (
-                  <td key={col.key} className="px-4 py-3 text-sm text-gray-700">
+                  <td
+                    key={col.key}
+                    className={`px-4 py-3 text-sm text-gray-700 ${
+                      col.className || ""
+                    }`}
+                  >
                     {col.render ? col.render(row) : row[col.key]}
                   </td>
                 ))}
@@ -64,6 +71,7 @@ List.propTypes = {
       key: PropTypes.string.isRequired,
       label: PropTypes.string.isRequired,
       render: PropTypes.func,
+      className: PropTypes.string, // Añade esto si quieres validación estricta
     })
   ).isRequired,
   data: PropTypes.arrayOf(PropTypes.object).isRequired,

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Filter from "../components/Filter";
+import UserFilter from "../components/UserFilter";
 import List from "../components/List";
 import Pagination from "../components/Pagination";
 import Modal from "../components/Modal";
@@ -137,7 +137,7 @@ export default function AdminUsers() {
         <h2 className="text-2xl font-bold text-cyan-700 mb-6 text-center">
           Gestión de usuarios
         </h2>
-        <Filter
+        <UserFilter
           filters={filters}
           onChange={setFilters}
           roleOptions={roles}

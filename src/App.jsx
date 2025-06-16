@@ -13,6 +13,7 @@ import AdminDashboard from "./pages/AdminDashboard";
 import AdminRoute from "./routes/AdminRoute";
 import PrivateRoute from "./routes/PrivateRoute";
 import AdminUsers from "./pages/AdminUsers";
+import AdminOrders from "./pages/AdminOrders";
 
 /**
  * Componente principal de la aplicación
@@ -48,6 +49,10 @@ function App() {
         <Route
           path="/admin/users"
           element={<AdminRoute children={<AdminUsers />} />}
+        />
+        <Route
+          path="/admin/orders"
+          element={<AdminRoute children={<AdminOrders />} />}
         />
       </Routes>
       <Footer />

@@ -147,6 +147,32 @@ export async function ordersRequest({ page = 0, startDate, endDate } = {}) {
   });
   return response.data;
 }
+
+/**
+ * Obtiene todos los pedidos del sistema con paginación y filtros.
+ *
+ * @param {Object} params - Parámetros de consulta para la paginación y filtrado.
+ * @param {number} params.page - Número de página (0-indexed).
+ * @param {string} [params.username] - Filtro por nombre de usuario.
+ * @param {string} [params.status] - Filtro por estado del pedido.
+ * @param {string} [params.startDate] - Fecha de inicio del filtro (formato ISO).
+ * @param {string} [params.endDate] - Fecha de fin del filtro (formato ISO).
+ * @returns {Promise<Object>} La respuesta del servidor con los pedidos paginados.
+ * @author Ángel Aragón
+ */
+export async function allOrdersRequest({
+  username,
+  status,
+  startDate,
+  endDate,
+  page = 0,
+} = {}) {
+  const response = await api.get(`${API_URL}/orders/all`, {
+    params: { username, status, startDate, endDate, page },
+  });
+  return response.data;
+}
+
 /**
  * Obtiene los usuarios del sistema con paginación y filtros.
  *
@@ -206,4 +232,16 @@ export async function updateUserRoles(userId, roles) {
  */
 export async function deleteUser(userId) {
   return api.delete(`/users/${userId}`);
+}
+
+/**
+ * Actualiza el estado de un pedido.
+ * @param {string} orderId - ID del pedido a actualizar.
+ * @param {string} status - Nuevo estado del pedido.
+ * @returns {Promise<Object>} La respuesta del servidor con los datos del pedido actualizado.
+ * @author Ángel Aragón
+ */
+export async function updateOrderStatus(orderId, status) {
+  const response = await api.put(`/orders/${orderId}`, { status });
+  return response.data;
 }
