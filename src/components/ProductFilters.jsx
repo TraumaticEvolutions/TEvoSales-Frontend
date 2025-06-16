@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 /**
  * Filtros de búsqueda para productos.
  *
@@ -84,3 +86,22 @@ export default function ProductFilters({ filters, onChange }) {
     </form>
   );
 }
+
+/**
+ * PropTypes para ProductFilters.
+ * Valida las propiedades del componente ProductFilters.
+ * @typedef {Object} ProductFiltersProps
+ * @property {Object} filters - Filtros actuales.
+ * @property {Function} onChange - Función para manejar cambios en los filtros.
+ * @returns {JSX.Element}
+ * @author Ángel Aragón
+ */
+ProductFilters.propTypes = {
+  filters: PropTypes.shape({
+    name: PropTypes.string,
+    brand: PropTypes.string,
+    category: PropTypes.string,
+    sort: PropTypes.string,
+  }).isRequired,
+  onChange: PropTypes.func.isRequired,
+};

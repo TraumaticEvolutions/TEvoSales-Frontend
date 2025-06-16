@@ -3,8 +3,31 @@ import Modal from "./Modal";
 import Button from "./Button";
 import { FaEdit } from "react-icons/fa";
 import { updateProduct } from "../services/api";
+import PropTypes from "prop-types";
 
-export default function ProductEditModal({ open, onClose, product, onSuccess }) {
+/**
+ * Componente modal para editar un producto.
+ * @param {Object} param0 - Props del componente
+ * @param {boolean} param0.open - Indica si el modal está abierto.
+ * @param {function} param0.onClose - Función para cerrar el modal.
+ * @param {object} param0.product - Objeto con los detalles del producto a editar.
+ * @param {function} param0.onSuccess - Función a llamar al guardar el producto.
+ * @param {string} param0.product.imagePath - URL o ruta de la imagen del producto.
+ * @param {string} param0.product.name - Nombre del producto.
+ * @param {string} param0.product.description - Descripción del producto.
+ * @param {number} param0.product.price - Precio del producto.
+ * @param {number} param0.product.stock - Stock del producto.
+ * @param {string} param0.product.brand - Marca del producto.
+ * @param {string} param0.product.category - Categoría del producto.
+ * @returns {JSX.Element} - Componente modal para editar un producto.
+ * @author Ángel Aragón
+ */
+export default function ProductEditModal({
+  open,
+  onClose,
+  product,
+  onSuccess,
+}) {
   const [form, setForm] = useState({});
   const [errors, setErrors] = useState({});
   const [saving, setSaving] = useState(false);
@@ -24,7 +47,6 @@ export default function ProductEditModal({ open, onClose, product, onSuccess }) 
     }
   }, [product, open]);
 
-  // Validación: solo formato de imagen si hay valor, pero ningún campo es requerido
   const validate = () => {
     const newErrors = {};
     if (form.imagePath.trim()) {
@@ -33,7 +55,8 @@ export default function ProductEditModal({ open, onClose, product, onSuccess }) 
       if (!validUrl.test(form.imagePath.trim())) {
         newErrors.imagePath = "Debe empezar por http:// o https://";
       } else if (!validExtensions.test(form.imagePath.trim())) {
-        newErrors.imagePath = "Debe terminar en una extensión de imagen válida (.jpg, .png, .webp, etc.)";
+        newErrors.imagePath =
+          "Debe terminar en una extensión de imagen válida (.jpg, .png, .webp, etc.)";
       }
     }
     return newErrors;
@@ -60,7 +83,9 @@ export default function ProductEditModal({ open, onClose, product, onSuccess }) 
       onSuccess && onSuccess();
       onClose();
     } catch (err) {
-      setErrors({ general: err?.response?.data?.message || "Error al editar el producto" });
+      setErrors({
+        general: err?.response?.data?.message || "Error al editar el producto",
+      });
     } finally {
       setSaving(false);
     }
@@ -99,7 +124,10 @@ export default function ProductEditModal({ open, onClose, product, onSuccess }) 
           <div className="text-red-600 text-sm mb-2">{errors.general}</div>
         )}
         <div>
-          <label className="block text-sm font-semibold mb-1" htmlFor="imagePath">
+          <label
+            className="block text-sm font-semibold mb-1"
+            htmlFor="imagePath"
+          >
             Imagen (URL o ruta)
           </label>
           <input
@@ -111,7 +139,9 @@ export default function ProductEditModal({ open, onClose, product, onSuccess }) 
             className="w-full border rounded px-3 py-2"
             placeholder="https://..."
           />
-          {errors.imagePath && <div className="text-red-600 text-xs">{errors.imagePath}</div>}
+          {errors.imagePath && (
+            <div className="text-red-600 text-xs">{errors.imagePath}</div>
+          )}
         </div>
         <div>
           <label className="block text-sm font-semibold mb-1" htmlFor="name">
@@ -127,7 +157,10 @@ export default function ProductEditModal({ open, onClose, product, onSuccess }) 
           />
         </div>
         <div>
-          <label className="block text-sm font-semibold mb-1" htmlFor="description">
+          <label
+            className="block text-sm font-semibold mb-1"
+            htmlFor="description"
+          >
             Descripción
           </label>
           <textarea
@@ -184,7 +217,10 @@ export default function ProductEditModal({ open, onClose, product, onSuccess }) 
           />
         </div>
         <div>
-          <label className="block text-sm font-semibold mb-1" htmlFor="category">
+          <label
+            className="block text-sm font-semibold mb-1"
+            htmlFor="category"
+          >
             Categoría
           </label>
           <input
@@ -200,3 +236,33 @@ export default function ProductEditModal({ open, onClose, product, onSuccess }) 
     </Modal>
   );
 }
+
+/**
+ * PropTypes para validar las props del componente ProductEditModal.
+ * @property {boolean} open - Indica si el modal está abierto.
+ * @property {function} onClose - Función para cerrar el modal.
+ * @property {object} product - Objeto con los detalles del producto a editar.
+ * @property {string} product.imagePath - URL o ruta de la imagen del producto.
+ * @property {string} product.name - Nombre del producto.
+ * @property {string} product.description - Descripción del producto.
+ * @property {number} product.price - Precio del producto.
+ * @property {number} product.stock - Stock del producto.
+ * @property {string} product.brand - Marca del producto.
+ * @property {string} product.category - Categoría del producto.
+ * @author Ángel Aragón
+ */
+ProductEditModal.propTypes = {
+  open: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
+  product: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    imagePath: PropTypes.string,
+    name: PropTypes.string.isRequired,
+    description: PropTypes.string,
+    price: PropTypes.number,
+    stock: PropTypes.number,
+    brand: PropTypes.string,
+    category: PropTypes.string,
+  }).isRequired,
+  onSuccess: PropTypes.func,
+};

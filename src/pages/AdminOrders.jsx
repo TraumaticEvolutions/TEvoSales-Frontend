@@ -8,6 +8,7 @@ import { allOrdersRequest, updateOrderStatus } from "../services/api";
 import { FaBoxOpen } from "react-icons/fa";
 import OrderDetailsModal from "../components/OrderDetailsModal";
 import OrderEditStatusModal from "../components/OrderEditStatusModal";
+import SuccessMsg from "../components/SuccessMsg";
 
 /**
  * Página de administración de pedidos.
@@ -34,6 +35,7 @@ export default function AdminOrders() {
   const [orderToEdit, setOrderToEdit] = useState(null);
   const [newStatus, setNewStatus] = useState("");
   const [saving, setSaving] = useState(false);
+  const [successMsg, setSuccessMsg] = useState("");
 
   useEffect(() => {
     setLoading(true);
@@ -128,8 +130,8 @@ export default function AdminOrders() {
       );
       setEditModalOpen(false);
       setOrderToEdit(null);
-
-      // eslint-disable-next-line no-unused-vars
+      setSuccessMsg("¡Estado actualizado correctamente!");
+      setTimeout(() => setSuccessMsg(""), 4000);
     } catch (err) {
       alert("Error al actualizar el estado");
     } finally {
@@ -143,6 +145,7 @@ export default function AdminOrders() {
         <h2 className="text-2xl font-bold text-cyan-700 mb-6 text-center">
           Gestión de pedidos
         </h2>
+        {successMsg && <SuccessMsg>{successMsg}</SuccessMsg>}
         <OrderFilter filters={filters} onChange={setFilters} />
         {loading ? (
           <div className="text-cyan-700 font-semibold my-10">Cargando...</div>

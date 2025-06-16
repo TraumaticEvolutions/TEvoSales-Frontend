@@ -6,6 +6,7 @@ import {
 } from "react-icons/fa";
 import Button from "./Button";
 import Modal from "./Modal";
+import PropTypes from "prop-types";
 
 const ORDER_STATUS_OPTIONS = [
   { value: "PENDIENTE", label: "Pendiente" },
@@ -119,3 +120,25 @@ export default function OrderEditStatusModal({
     </Modal>
   );
 }
+
+/**
+ * PropTypes para validar las propiedades del componente OrderEditStatusModal.
+ * @typedef {Object} OrderEditStatusModalProps
+ * @property {boolean} open - Si el modal está abierto.
+ * @property {Function} onClose - Función para cerrar el modal.
+ * @property {Object} order - Detalles del pedido a editar.
+ * @property {string} newStatus - Nuevo estado del pedido.
+ * @property {Function} setNewStatus - Función para actualizar el nuevo estado.
+ * @property {Function} onSave - Función para guardar los cambios.
+ * @property {boolean} saving - Si se está guardando el estado.
+ * @author Ángel Aragón
+ */
+OrderEditStatusModal.propTypes = {
+  open: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
+  order: PropTypes.object.isRequired,
+  newStatus: PropTypes.string.isRequired,
+  setNewStatus: PropTypes.func.isRequired,
+  onSave: PropTypes.func.isRequired,
+  saving: PropTypes.bool.isRequired,
+};

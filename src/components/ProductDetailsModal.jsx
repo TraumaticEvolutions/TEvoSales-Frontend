@@ -7,6 +7,7 @@ import {
   FaIndustry,
   FaLayerGroup,
 } from "react-icons/fa";
+import PropTypes from "prop-types";
 
 /**
  * Muestra los detalles de un producto en un modal.
@@ -92,3 +93,34 @@ export default function ProductDetailsModal({ open, onClose, product }) {
     </Modal>
   );
 }
+
+/**
+ * PropTypes para validar las propiedades del componente ProductDetailsModal.
+ * @typedef {Object} ProductDetailsModalProps
+ * @property {boolean} open - Indica si el modal está abierto.
+ * @property {Function} onClose - Función para cerrar el modal.
+ * @property {Object} product - Detalles del producto a mostrar.
+ * @property {string} [product.description] - Descripción del producto.
+ * @property {number} product.id - ID del producto.
+ * @property {string} product.name - Nombre del producto.
+ * @property {string} product.brand - Marca del producto.
+ * @property {string} product.category - Categoría del producto.
+ * @property {number} product.price - Precio del producto.
+ * @property {number} product.stock - Stock del producto.
+ * @property {string} [product.imagePath] - Ruta de la imagen del producto.
+ * @author Ángel Aragón
+ */
+ProductDetailsModal.propTypes = {
+  open: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
+  product: PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string.isRequired,
+    brand: PropTypes.string.isRequired,
+    category: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    stock: PropTypes.number.isRequired,
+    imagePath: PropTypes.string,
+    description: PropTypes.string,
+  }),
+};

@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import PropTypes from "prop-types";
 
 /**
  * Componente visual que representa una tarjeta de producto en el marketplace.

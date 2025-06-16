@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 const ORDER_STATUS_OPTIONS = [
   { value: "PENDIENTE", label: "Pendiente" },
   { value: "CONFIRMADO", label: "Confirmado" },
@@ -101,3 +103,25 @@ export default function OrderFilter({ filters, onChange }) {
     </form>
   );
 }
+
+/**
+ * PropTypes para el componente OrderFilter.
+ * Define los tipos de las propiedades esperadas.
+ * @type {Object}
+ * @property {Object} filters - Filtros actuales del componente.
+ * @property {string} filters.username - Nombre de usuario para filtrar.
+ * @property {string} filters.status - Estado del pedido para filtrar.
+ * @property {string} filters.startDate - Fecha de inicio del rango de fechas.
+ * @property {string} filters.endDate - Fecha de fin del rango de fechas.
+ * @property {Function} onChange - Función que se llama al cambiar los filtros.
+ * @author Ángel Aragón
+ */
+OrderFilter.propTypes = {
+  filters: PropTypes.shape({
+    username: PropTypes.string,
+    status: PropTypes.string,
+    startDate: PropTypes.string,
+    endDate: PropTypes.string,
+  }).isRequired,
+  onChange: PropTypes.func.isRequired,
+};

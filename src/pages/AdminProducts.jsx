@@ -8,7 +8,7 @@ import { FaEdit, FaTrash, FaPlus } from "react-icons/fa";
 import ProductDetailsModal from "../components/ProductDetailsModal";
 import ProductCreateModal from "../components/ProductCreateModal";
 import ProductEditModal from "../components/ProductEditModal";
-import ProductDeleteModal from "../components/ProductDeleteModal";
+import ConfirmDeleteModal from "../components/ConfirmDeleteModal";
 import SuccessMsg from "../components/SuccessMsg";
 
 /**
@@ -208,12 +208,13 @@ export default function AdminProducts() {
         product={productToEdit}
         onSuccess={handleProductEdited}
       />
-      <ProductDeleteModal
+      <ConfirmDeleteModal
         open={deleteModalOpen}
         onClose={() => setDeleteModalOpen(false)}
-        product={productToDelete}
         onConfirm={handleProductDeleted}
         deleting={deleting}
+        resourceName="producto"
+        itemName={productToDelete?.name}
       />
     </section>
   );

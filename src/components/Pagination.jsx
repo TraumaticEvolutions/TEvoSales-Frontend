@@ -1,3 +1,17 @@
+import PropTypes from "prop-types";
+/**
+ * Componente de paginación estilizado para navegar entre páginas de resultados.
+ * Permite cambiar entre páginas y muestra un rango de números de página centrado en la página actual.
+ *
+ * @param {Object} props
+ * @param {number} props.page - Página actual (0-indexed).
+ * @param {number} props.totalPages - Total de páginas disponibles.
+ * @param {Function} props.onPageChange - Función que se llama al cambiar de página.
+ * @returns {JSX.Element}
+ *
+ * @author Ángel Aragón
+ */
+
 /**
  * Componente de paginación estilizado.
  *
@@ -63,3 +77,16 @@ export default function Pagination({ page, totalPages, onPageChange }) {
     </nav>
   );
 }
+
+/**
+ * PropTypes para el componente Pagination
+ * @typedef {Object} PaginationProps
+ * @property {number} page - Página actual (0-indexed).
+ * @property {number} totalPages - Total de páginas disponibles.
+ * @property {Function} onPageChange - Función que se llama al cambiar de página.
+ */
+Pagination.propTypes = {
+  page: PropTypes.number.isRequired,
+  totalPages: PropTypes.number.isRequired,
+  onPageChange: PropTypes.func.isRequired,
+};

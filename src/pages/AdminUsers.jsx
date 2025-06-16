@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import UserFilter from "../components/UserFilter";
 import List from "../components/List";
 import Pagination from "../components/Pagination";
-import Modal from "../components/Modal";
 import Button from "../components/Button";
 import {
   getUsersRequest,
@@ -12,6 +11,9 @@ import {
 } from "../services/api";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import EditUserRolesModal from "../components/EditUserRolesModal";
+import ConfirmDeleteModal from "../components/ConfirmDeleteModal";
+import UserDetailsModal from "../components/UserDetailsModal";
+import SuccessMsg from "../components/SuccessMsg";
 
 /**
  * Componente para la administración de usuarios.
@@ -38,6 +40,7 @@ export default function AdminUsers() {
   const [editUser, setEditUser] = useState(null);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [userToDelete, setUserToDelete] = useState(null);
+  const [successMsg, setSuccessMsg] = useState("");
 
   useEffect(() => {
     getRolesRequest().then(setRoles);
@@ -64,6 +67,10 @@ export default function AdminUsers() {
       setUsers((prev) =>
         prev.map((u) => (u.id === editUser.id ? { ...u, roles: newRoles } : u))
       );
+      setSuccessMsg("¡Roles actualizados correctamente!");
+      setEditModalOpen(false);
+      setEditUser(null);
+      setTimeout(() => setSuccessMsg(""), 4000);
     } catch (err) {
       console.error("Error actualizando roles:", err);
     }
@@ -79,8 +86,10 @@ export default function AdminUsers() {
     try {
       await deleteUser(userToDelete.id);
       setUsers((prev) => prev.filter((u) => u.id !== userToDelete.id));
+      setSuccessMsg("¡Usuario eliminado correctamente!");
       setDeleteModalOpen(false);
       setUserToDelete(null);
+      setTimeout(() => setSuccessMsg(""), 4000);
     } catch (err) {
       console.error("Error borrando usuario:", err);
     }
@@ -137,6 +146,7 @@ export default function AdminUsers() {
         <h2 className="text-2xl font-bold text-cyan-700 mb-6 text-center">
           Gestión de usuarios
         </h2>
+        {successMsg && <SuccessMsg>{successMsg}</SuccessMsg>}
         <UserFilter
           filters={filters}
           onChange={setFilters}
@@ -156,96 +166,28 @@ export default function AdminUsers() {
           </>
         )}
 
-        <Modal
+        <UserDetailsModal
           open={modalOpen}
           onClose={() => setModalOpen(false)}
-          title={`Detalles de ${selectedUser?.username || ""}`}
-          actions={
-            <Button
-              text="Cerrar"
-              onClick={() => setModalOpen(false)}
-              bgColor="bg-cyan-500"
-              bgColorHover="hover:bg-cyan-600"
-            />
-          }
-        >
-          {selectedUser && (
-            <div className="space-y-2">
-              <div>
-                <span className="font-semibold text-cyan-700">Usuario:</span>{" "}
-                {selectedUser.username}
-              </div>
-              <div>
-                <span className="font-semibold text-cyan-700">Nombre:</span>{" "}
-                {selectedUser.name}
-              </div>
-              <div>
-                <span className="font-semibold text-cyan-700">Email:</span>{" "}
-                {selectedUser.email}
-              </div>
-              <div>
-                <span className="font-semibold text-cyan-700">NIF:</span>{" "}
-                {selectedUser.nif}
-              </div>
-              <div>
-                <span className="font-semibold text-cyan-700">Pedidos:</span>{" "}
-                {selectedUser.ordersCount}
-              </div>
-              <div>
-                <span className="font-semibold text-cyan-700">Roles:</span>{" "}
-                <div className="flex flex-wrap gap-1 mt-1">
-                  {selectedUser.roles?.map((role) => (
-                    <span
-                      key={role}
-                      className="bg-cyan-100 text-cyan-700 px-2 py-0.5 rounded text-xs"
-                    >
-                      {role.replace("ROLE_", "")}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </div>
-          )}
-        </Modal>
+          user={selectedUser}
+        />
+
+        <EditUserRolesModal
+          open={editModalOpen}
+          onClose={() => setEditModalOpen(false)}
+          user={editUser}
+          allRoles={roles}
+          onSave={handleSaveRoles}
+        />
+        <ConfirmDeleteModal
+          open={deleteModalOpen}
+          onClose={() => setDeleteModalOpen(false)}
+          onConfirm={handleConfirmDelete}
+          deleting={false}
+          resourceName="usuario"
+          itemName={userToDelete?.username}
+        />
       </section>
-      <EditUserRolesModal
-        open={editModalOpen}
-        onClose={() => setEditModalOpen(false)}
-        user={editUser}
-        allRoles={roles}
-        onSave={handleSaveRoles}
-      />
-      <Modal
-        open={deleteModalOpen}
-        onClose={() => setDeleteModalOpen(false)}
-        title="Confirmar eliminación"
-        actions={
-          <div className="flex justify-end gap-2">
-            <Button
-              text="Cancelar"
-              onClick={() => setDeleteModalOpen(false)}
-              bgColor="bg-gray-300"
-              bgColorHover="hover:bg-gray-400"
-            />
-            <Button
-              text="Eliminar"
-              onClick={handleConfirmDelete}
-              bgColor="bg-red-500"
-              bgColorHover="hover:bg-red-600"
-            />
-          </div>
-        }
-      >
-        <div className="text-center py-4">
-          <p className="text-sm text-gray-700">
-            ¿Estás seguro de que deseas eliminar a{" "}
-            <span className="font-semibold text-cyan-700">
-              {userToDelete?.username}
-            </span>
-            ?
-          </p>
-        </div>
-      </Modal>
     </>
   );
 }
