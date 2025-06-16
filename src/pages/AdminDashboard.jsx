@@ -39,16 +39,19 @@ export default function AdminDashboard() {
           icon={<FaShoppingCart className="text-4xl text-cyan-600 mb-2" />}
           title="Pedidos"
           description="Consulta y administra los pedidos realizados."
+          to="/admin/orders"
         />
         <AdminDashboardCard
           icon={<AiFillProduct className="text-4xl text-cyan-600 mb-2" />}
           title="Productos"
           description="Consulta y administra los productos disponibles."
+          to="/admin/products"
         />
         <AdminDashboardCard
           icon={<LuScrollText className="text-4xl text-cyan-600 mb-2" />}
           title="Roles"
           description="Consulta y administra los roles de usuario."
+          to="/admin/roles"
         />
         <AdminDashboardCard
           icon={<FaWarehouse className="text-4xl text-cyan-600 mb-2" />}

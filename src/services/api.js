@@ -245,3 +245,38 @@ export async function updateOrderStatus(orderId, status) {
   const response = await api.put(`/orders/${orderId}`, { status });
   return response.data;
 }
+
+/**
+ * Elimina un producto del sistema.
+ * @param {string} productId - ID del producto a eliminar.
+ * @returns {Promise<void>} Una promesa que se resuelve cuando el producto ha sido eliminado.
+ * @author Ángel Aragón
+ */
+export async function deleteProduct(productId) {
+  return api.delete(`/products/${productId}`);
+}
+/**
+ * Actualiza un producto existente.
+ * @param {string} productId - ID del producto a actualizar.
+ * @param {Object} productData - Datos actualizados del producto.
+ * @returns {Promise<Object>} La respuesta del servidor con los datos del producto actualizado.
+ * @author Ángel Aragón
+ */
+export async function updateProduct(productId, productData) {
+  const response = await api.put(`/products/${productId}`, productData, {
+    headers: { "Content-Type": "application/json" },
+  });
+  return response.data;
+}
+/**
+ * Crea un nuevo producto.
+ * @param {Object} productData - Datos del producto a crear.
+ * @returns {Promise<Object>} La respuesta del servidor con los datos del producto creado.
+ * @author Ángel Aragón
+ */
+export async function createProduct(productData) {
+  const response = await api.post(`/products`, productData, {
+    headers: { "Content-Type": "application/json" },
+  });
+  return response.data;
+}

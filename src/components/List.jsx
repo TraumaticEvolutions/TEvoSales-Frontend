@@ -16,7 +16,7 @@ export default function List({ columns, data, rowProps }) {
             {columns.map((col) => (
               <th
                 key={col.key}
-                className={`px-4 py-3 text-left text-xs font-semibold text-cyan-700 uppercase tracking-wider ${
+                className={`px-1 sm:px-4 py-2 text-left font-semibold text-cyan-700 ${
                   col.className || ""
                 }`}
               >
@@ -30,7 +30,7 @@ export default function List({ columns, data, rowProps }) {
             <tr>
               <td
                 colSpan={columns.length}
-                className="px-4 py-6 text-center text-gray-400"
+                className="px-1 sm:px-4 py-6 text-center text-gray-400"
               >
                 No hay resultados.
               </td>
@@ -41,7 +41,7 @@ export default function List({ columns, data, rowProps }) {
                 {columns.map((col) => (
                   <td
                     key={col.key}
-                    className={`px-4 py-3 text-sm text-gray-700 ${
+                    className={`px-1 sm:px-4 py-3 text-sm text-gray-700 ${
                       col.className || ""
                     }`}
                   >

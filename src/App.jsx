@@ -14,6 +14,7 @@ import AdminRoute from "./routes/AdminRoute";
 import PrivateRoute from "./routes/PrivateRoute";
 import AdminUsers from "./pages/AdminUsers";
 import AdminOrders from "./pages/AdminOrders";
+import AdminProducts from "./pages/AdminProducts";
 
 /**
  * Componente principal de la aplicación
@@ -53,6 +54,10 @@ function App() {
         <Route
           path="/admin/orders"
           element={<AdminRoute children={<AdminOrders />} />}
+        />
+        <Route
+          path="/admin/products"
+          element={<AdminRoute children={<AdminProducts />} />}
         />
       </Routes>
       <Footer />
