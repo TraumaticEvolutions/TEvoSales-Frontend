@@ -132,6 +132,7 @@ export default function AdminOrders() {
       setOrderToEdit(null);
       setSuccessMsg("¡Estado actualizado correctamente!");
       setTimeout(() => setSuccessMsg(""), 4000);
+      // eslint-disable-next-line no-unused-vars
     } catch (err) {
       alert("Error al actualizar el estado");
     } finally {

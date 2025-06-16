@@ -202,6 +202,51 @@ export async function getRolesRequest() {
 }
 
 /**
+ * Obtiene los roles disponibles en el sistema con paginación.
+ * @param {Object} params - Parámetros de paginación.
+ * @returns {Promise<Object>} La respuesta del servidor con los roles paginados.
+ * @author Ángel Aragón
+ */
+export async function getRolesRequestPaged(params = {}) {
+  const response = await api.get(`/roles/paged`, { params });
+  return response.data;
+}
+
+/**
+ * Crea un nuevo rol en el sistema.
+ * @param {Object} roleData - Datos del rol a crear.
+ * @returns {Promise<Object>} La respuesta del servidor con los datos del rol creado.
+ * @author Ángel Aragón
+ */
+export async function createRole(roleData) {
+  const response = await api.post(`/roles`, roleData);
+  return response.data;
+}
+
+/**
+ * Actualiza un rol existente en el sistema.
+ * @param {Object} roleData - Datos actualizados del rol.
+ * @param {string} roleId - ID del rol a actualizar.
+ * @returns {Promise<Object>} La respuesta del servidor con los datos del rol actualizado.
+ * @author Ángel Aragón
+ */
+export async function updateRole(roleId, roleData) {
+  const response = await api.put(`/roles/${roleId}`, roleData);
+  return response.data;
+}
+
+/**
+ * Elimina un rol del sistema.
+ * @param {string} roleId - ID del rol a eliminar.
+ * @returns {Promise<void>} Una promesa que se resuelve cuando el rol ha sido eliminado.
+ * @author Ángel Aragón
+ */
+export async function deleteRole(roleId) {
+  const response = await api.delete(`/roles/${roleId}`);
+  return response.data;
+}
+
+/**
  * Realiza un logout global.
  * Elimina el token del almacenamiento local y redirige al usuario a la página de inicio de sesión.
  * @author Ángel Aragón
