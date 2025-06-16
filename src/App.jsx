@@ -16,6 +16,7 @@ import AdminUsers from "./pages/AdminUsers";
 import AdminOrders from "./pages/AdminOrders";
 import AdminProducts from "./pages/AdminProducts";
 import AdminRoles from "./pages/AdminRoles";
+import AdminStats from "./pages/AdminStats";
 
 /**
  * Componente principal de la aplicación
@@ -63,6 +64,10 @@ function App() {
         <Route
           path="/admin/roles"
           element={<AdminRoute children={<AdminRoles />} />}
+        />
+        <Route
+          path="/admin/statistics"
+          element={<AdminRoute children={<AdminStats />} />}
         />
       </Routes>
       <Footer />

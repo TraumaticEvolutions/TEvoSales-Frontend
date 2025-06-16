@@ -26,7 +26,6 @@ export default function AdminDashboard() {
           icon={<FaChartBar className="text-4xl text-cyan-600 mb-2" />}
           title="Estadísticas"
           description="Visualiza gráficas y datos clave del sistema."
-          disabled
           to="/admin/statistics"
         />
         <AdminDashboardCard

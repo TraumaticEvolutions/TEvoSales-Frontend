@@ -106,34 +106,43 @@ export default function AdminRoles() {
     {
       key: "actions",
       label: "",
-      render: (row) => (
-        <div className="flex gap-2 justify-end">
-          <Button
-            text={<FaEdit size={14} />}
-            ariaLabel="Editar rol"
-            bgColor="bg-cyan-500"
-            bgColorHover="hover:bg-cyan-600"
-            className="flex items-center justify-center"
-            onClick={(e) => {
-              e.stopPropagation();
-              setRoleToEdit(row);
-              setEditModalOpen(true);
-            }}
-          />
-          <Button
-            text={<FaTrash size={14} />}
-            ariaLabel="Eliminar rol"
-            bgColor="bg-red-500"
-            bgColorHover="hover:bg-red-600"
-            className="flex items-center justify-center"
-            onClick={(e) => {
-              e.stopPropagation();
-              setRoleToDelete(row);
-              setDeleteModalOpen(true);
-            }}
-          />
-        </div>
-      ),
+      render: (row) => {
+        const baseName = removeRolePrefix(row.name).toUpperCase();
+        const isProtected =
+          baseName === "ADMIN" || baseName === "CLIENTE" || baseName === "ENTIDAD";
+        return (
+          <div className="flex gap-2 justify-end">
+            <Button
+              text={<FaEdit size={14} />}
+              ariaLabel="Editar rol"
+              bgColor="bg-cyan-500"
+              bgColorHover="hover:bg-cyan-600"
+              className="flex items-center justify-center"
+              onClick={(e) => {
+                if (isProtected) return;
+                e.stopPropagation();
+                setRoleToEdit(row);
+                setEditModalOpen(true);
+              }}
+              disabled={isProtected}
+            />
+            <Button
+              text={<FaTrash size={14} />}
+              ariaLabel="Eliminar rol"
+              bgColor="bg-red-500"
+              bgColorHover="hover:bg-red-600"
+              className="flex items-center justify-center"
+              onClick={(e) => {
+                if (isProtected) return;
+                e.stopPropagation();
+                setRoleToDelete(row);
+                setDeleteModalOpen(true);
+              }}
+              disabled={isProtected}
+            />
+          </div>
+        );
+      },
     },
   ];
 

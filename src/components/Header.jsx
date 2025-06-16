@@ -9,6 +9,7 @@ import { FaUserInjured, FaShoppingCart, FaBoxOpen } from "react-icons/fa";
 import Sidebar from "./Sidebar";
 import logo from "../assets/TEvoLogo.svg";
 import { useAuth } from "../context/useAuth";
+import { GrUserAdmin } from "react-icons/gr";
 
 /**
  * Componente Header del marketplace TEvoSales
@@ -63,44 +64,63 @@ const Header = () => {
         )}
         {user ? (
           <>
-            <Link
-              to="/orders"
-              className="relative text-gray-700 hover:text-black font-semibold after:content-[''] after:absolute after:w-0 after:h-[2px] after:bottom-0 after:left-0 after:bg-black after:transition-all after:duration-600 hover:after:w-full flex items-center gap-2"
-            >
-              <FaBoxOpen /> Mis pedidos
-            </Link>
+            {user.roles?.includes("ROLE_ADMIN") && !isActive("/admin") && (
+              <Link
+                to="/admin"
+                className="relative text-gray-700 hover:text-black font-semibold after:content-[''] after:absolute after:w-0 after:h-[2px] after:bottom-0 after:left-0 after:bg-black after:transition-all after:duration-600 hover:after:w-full flex items-center gap-2"
+              >
+                <span className="material-icons">
+                  <GrUserAdmin />
+                </span>{" "}
+                Administración
+              </Link>
+            )}
+            {!isActive("/orders") && (
+              <Link
+                to="/orders"
+                className="relative text-gray-700 hover:text-black font-semibold after:content-[''] after:absolute after:w-0 after:h-[2px] after:bottom-0 after:left-0 after:bg-black after:transition-all after:duration-600 hover:after:w-full flex items-center gap-2"
+              >
+                <FaBoxOpen /> Mis pedidos
+              </Link>
+            )}
             <button
               onClick={logout}
               className="relative text-gray-700 hover:text-black font-semibold after:content-[''] after:absolute after:w-0 after:h-[2px] after:bottom-0 after:left-0 after:bg-black after:transition-all after:duration-600 hover:after:w-full flex items-center gap-2"
             >
               <ImExit /> Cerrar sesión
             </button>
-            <Link
-              to="/cart"
-              className={`relative text-gray-700 hover:text-black font-semibold flex items-center gap-2`}
-            >
-              <BsCart4 className="w-6 h-6 hover:w-6.5 hover:h-6.5 transition-all duration-600" />
-              {count > 0 && (
-                <span className="absolute -bottom-3 -right-4 bg-cyan-600 text-white text-xs rounded-full px-2 py-0.5 font-bold shadow">
-                  {count}
-                </span>
-              )}
-            </Link>
+            {!isActive("/cart") && (
+              <Link
+                to="/cart"
+                className={`relative text-gray-700 hover:text-black font-semibold flex items-center gap-2`}
+              >
+                <BsCart4 className="w-6 h-6 hover:w-6.5 hover:h-6.5 transition-all duration-600" />
+                {count > 0 && (
+                  <span className="absolute -bottom-3 -right-4 bg-cyan-600 text-white text-xs rounded-full px-2 py-0.5 font-bold shadow">
+                    {count}
+                  </span>
+                )}
+              </Link>
+            )}
           </>
         ) : (
           <>
-            <Link
-              to="/login"
-              className="relative text-gray-700 hover:text-black font-semibold after:content-[''] after:absolute after:w-0 after:h-[2px] after:bottom-0 after:left-0 after:bg-black after:transition-all after:duration-600 hover:after:w-full flex items-center gap-2"
-            >
-              <FaUserInjured /> Iniciar sesión
-            </Link>
-            <Link
-              to="/register"
-              className="relative text-gray-700 hover:text-black font-semibold after:content-[''] after:absolute after:w-0 after:h-[2px] after:bottom-0 after:left-0 after:bg-black after:transition-all after:duration-600 hover:after:w-full flex items-center gap-2"
-            >
-              <GrUserNew /> Registrarse
-            </Link>
+            {!isActive("/login") && (
+              <Link
+                to="/login"
+                className="relative text-gray-700 hover:text-black font-semibold after:content-[''] after:absolute after:w-0 after:h-[2px] after:bottom-0 after:left-0 after:bg-black after:transition-all after:duration-600 hover:after:w-full flex items-center gap-2"
+              >
+                <FaUserInjured /> Iniciar sesión
+              </Link>
+            )}
+            {!isActive("/register") && (
+              <Link
+                to="/register"
+                className="relative text-gray-700 hover:text-black font-semibold after:content-[''] after:absolute after:w-0 after:h-[2px] after:bottom-0 after:left-0 after:bg-black after:transition-all after:duration-600 hover:after:w-full flex items-center gap-2"
+              >
+                <GrUserNew /> Registrarse
+              </Link>
+            )}
           </>
         )}
       </nav>

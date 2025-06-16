@@ -90,7 +90,6 @@ export default function AdminProducts() {
     },
   ];
 
-  // Añade rowProps para List:
   const rowProps = (row) => ({
     className: "cursor-pointer transition hover:bg-cyan-50",
     onClick: () => {
@@ -99,11 +98,9 @@ export default function AdminProducts() {
     },
   });
 
-  // Refresca productos tras crear uno nuevo
   const handleProductCreated = () => {
     setSuccessMsg("¡Producto creado correctamente!");
     setCreateModalOpen(false);
-    // Refresca la lista
     allProductsRequest({ ...filters, page }).then((res) => {
       setProducts(res.content || []);
       setTotalPages(res.totalPages || 1);
@@ -111,7 +108,6 @@ export default function AdminProducts() {
     setTimeout(() => setSuccessMsg(""), 4000);
   };
 
-  // Al guardar edición, refresca productos y muestra mensaje de éxito
   const handleProductEdited = () => {
     setSuccessMsg("¡Producto editado correctamente!");
     setEditModalOpen(false);
@@ -131,7 +127,6 @@ export default function AdminProducts() {
       setSuccessMsg("¡Producto eliminado correctamente!");
       setDeleteModalOpen(false);
       setProductToDelete(null);
-      // Refresca la lista
       allProductsRequest({ ...filters, page }).then((res) => {
         setProducts(res.content || []);
         setTotalPages(res.totalPages || 1);

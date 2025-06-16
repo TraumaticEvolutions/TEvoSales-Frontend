@@ -325,3 +325,22 @@ export async function createProduct(productData) {
   });
   return response.data;
 }
+
+/**
+ * Obtiene los 5 productos más vendidos.
+ * @returns {Promise<Object[]>} Un array de los 5 productos más vendidos.
+ */
+export async function get5BestSellersProducts() {
+  const response = await api.get(`/products/top-sellers`);
+  return response.data;
+}
+
+/**
+ * Obtiene los 5 usuarios que más han comprado.
+ * @returns {Promise<Object[]>} Un array de los 5 usuarios que más han comprado.
+ * @author Ángel Aragón
+ */
+export async function getTop5Users() {
+  const response = await api.get(`/users/top-users`);
+  return response.data;
+}

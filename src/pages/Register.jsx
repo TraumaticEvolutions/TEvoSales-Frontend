@@ -179,7 +179,12 @@ export default function Register() {
               type="password"
               {...register("password", {
                 required: "La contraseña es obligatoria",
-                minLength: { value: 6, message: "Mínimo 6 caracteres" },
+                minLength: { value: 8, message: "Mínimo 8 caracteres" },
+                pattern: {
+                  value: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[A-Z]).{8,}$/,
+                  message:
+                    "Debe contener letras, números y al menos una mayúscula",
+                },
               })}
               className={`w-full border rounded-lg px-3 py-2 bg-[#eaf6ff] focus:outline-none focus:ring-1 transition ${
                 errors.password ? "border-red-400" : "border-gray-300"

@@ -228,6 +228,11 @@ export default function Cart() {
                   <input
                     {...register("postalCode", {
                       required: "El código postal es obligatorio",
+                      pattern: {
+                        value: /^[0-9]{5}$/,
+                        message:
+                          "Introduce un código postal válido (5 dígitos)",
+                      },
                     })}
                     className={`mt-1 w-full border rounded px-3 py-2 focus:outline-none focus:ring-1 ${
                       errors.postalCode ? "border-red-600" : "border-gray-300"
@@ -235,6 +240,8 @@ export default function Cart() {
                     placeholder="Ej: 28080"
                     type="text"
                     id="postalCode"
+                    maxLength={5}
+                    inputMode="numeric"
                   />
                   {errors.postalCode && (
                     <span className="text-red-600 text-xs">
@@ -251,11 +258,13 @@ export default function Cart() {
                         value: /^[0-9]{16}$/,
                         message: "Introduce 16 dígitos",
                       },
+                      validate: (value) =>
+                        isValidCardNumber(value) || "Tarjeta no válida",
                     })}
                     className={`mt-1 w-full border rounded px-3 py-2 focus:outline-none focus:ring-1 ${
                       errors.card ? "border-red-600" : "border-gray-300"
                     }`}
-                    placeholder="1234 5678 9012 3456"
+                    placeholder="1234567890123456"
                     maxLength={16}
                     inputMode="numeric"
                     type="text"
@@ -274,4 +283,19 @@ export default function Cart() {
       </div>
     </section>
   );
+}
+
+function isValidCardNumber(value) {
+  let sum = 0;
+  let shouldDouble = false;
+  for (let i = value.length - 1; i >= 0; i--) {
+    let digit = parseInt(value[i]);
+    if (shouldDouble) {
+      digit *= 2;
+      if (digit > 9) digit -= 9;
+    }
+    sum += digit;
+    shouldDouble = !shouldDouble;
+  }
+  return sum % 10 === 0;
 }

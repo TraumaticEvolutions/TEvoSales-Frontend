@@ -54,4 +54,28 @@ const ProductCard = ({ product }) => {
   );
 };
 
+/**
+ * PropTypes para el componente ProductCard
+ * @typedef {Object} ProductCardProps
+ * @property {Object} product - Objeto con la información del producto.
+ * @property {string} product.id - ID del producto.
+ * @property {string} product.name - Nombre del producto.
+ * @property {string} product.brand - Marca del producto.
+ * @property {number} product.price - Precio del producto.
+ * @property {string} [product.imagePath] - Imagen del producto (URL o base64).
+ * @property {string} [product.category] - Categoría del producto.
+ *
+ * @author Ángel Aragón
+ */
+ProductCard.propTypes = {
+  product: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    brand: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    imagePath: PropTypes.string,
+    category: PropTypes.string,
+  }).isRequired,
+};
+
 export default ProductCard;

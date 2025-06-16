@@ -5,6 +5,7 @@ import { ImExit } from "react-icons/im";
 import { FaUserInjured, FaShoppingCart, FaBoxOpen } from "react-icons/fa";
 import { GrUserNew } from "react-icons/gr";
 import { BsCart4 } from "react-icons/bs";
+import { GrUserAdmin } from "react-icons/gr";
 
 /**
  * Componente Sidebar para navegación mobile.
@@ -53,13 +54,27 @@ const Sidebar = ({ isOpen, onClose, user, logout, cartCount }) => {
         )}
         {user ? (
           <>
-            <Link
-              to="/orders"
-              onClick={onClose}
-              className="hover:text-white hover:bg-gray-700 pl-5 p-2 transition rounded-xl flex items-center gap-2"
-            >
-              <FaBoxOpen /> Mis órdenes
-            </Link>
+            {user.roles?.includes("ROLE_ADMIN") && !isActive("/admin") && (
+              <Link
+                to="/admin"
+                onClick={onClose}
+                className="hover:text-white hover:bg-gray-700 pl-5 p-2 transition rounded-xl flex items-center gap-2"
+              >
+                <span className="material-icons">
+                  <GrUserAdmin />
+                </span>{" "}
+                Administración
+              </Link>
+            )}
+            {!isActive("/orders") && (
+              <Link
+                to="/orders"
+                onClick={onClose}
+                className="hover:text-white hover:bg-gray-700 pl-5 p-2 transition rounded-xl flex items-center gap-2"
+              >
+                <FaBoxOpen /> Mis órdenes
+              </Link>
+            )}
             <button
               onClick={() => {
                 logout();
@@ -69,35 +84,41 @@ const Sidebar = ({ isOpen, onClose, user, logout, cartCount }) => {
             >
               <ImExit /> Cerrar sesión
             </button>
-            <Link
-              to="/cart"
-              onClick={onClose}
-              className="hover:text-white hover:bg-gray-700 pl-5 p-2 transition rounded-xl flex items-center gap-2 relative"
-            >
-              <BsCart4 /> Carrito
-              {cartCount > 0 && (
-                <span className="bg-cyan-600 text-white text-xs rounded-full  px-5 py-0.5 font-bold shadow">
-                  {cartCount}
-                </span>
-              )}
-            </Link>
+            {!isActive("/cart") && (
+              <Link
+                to="/cart"
+                onClick={onClose}
+                className="hover:text-white hover:bg-gray-700 pl-5 p-2 transition rounded-xl flex items-center gap-2 relative"
+              >
+                <BsCart4 /> Carrito
+                {cartCount > 0 && (
+                  <span className="bg-cyan-600 text-white text-xs rounded-full  px-5 py-0.5 font-bold shadow">
+                    {cartCount}
+                  </span>
+                )}
+              </Link>
+            )}
           </>
         ) : (
           <>
-            <Link
-              to="/login"
-              onClick={onClose}
-              className="hover:text-white hover:bg-gray-700 pl-5 p-2 transition rounded-xl flex items-center gap-2"
-            >
-              <FaUserInjured /> Iniciar sesión
-            </Link>
-            <Link
-              to="/register"
-              onClick={onClose}
-              className="hover:text-white hover:bg-gray-700 pl-5 p-2 transition rounded-xl flex items-center gap-2"
-            >
-              <GrUserNew /> Registrarse
-            </Link>
+            {!isActive("/login") && (
+              <Link
+                to="/login"
+                onClick={onClose}
+                className="hover:text-white hover:bg-gray-700 pl-5 p-2 transition rounded-xl flex items-center gap-2"
+              >
+                <FaUserInjured /> Iniciar sesión
+              </Link>
+            )}
+            {!isActive("/register") && (
+              <Link
+                to="/register"
+                onClick={onClose}
+                className="hover:text-white hover:bg-gray-700 pl-5 p-2 transition rounded-xl flex items-center gap-2"
+              >
+                <GrUserNew /> Registrarse
+              </Link>
+            )}
           </>
         )}
       </nav>
