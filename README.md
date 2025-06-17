@@ -1,12 +1,53 @@
-# React + Vite
+# TEvoSales Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+TEvoSales Frontend es una aplicación web desarrollada con React y Vite que sirve como interfaz de usuario para la gestión y visualización de ventas. La aplicación está diseñada para ser rápida, moderna y fácil de mantener, utilizando las últimas tecnologías del ecosistema JavaScript.
 
-Currently, two official plugins are available:
+![Image Front](https://i.imgur.com/5JVctRi.png)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Tecnologías y versiones utilizadas
 
-## Expanding the ESLint configuration
+- **Lenguaje principal:** JavaScript (ES2022+)
+- **Framework de UI:** [React](https://react.dev/) v19.1.0
+- **Empaquetador:** [Vite](https://vitejs.dev/) v6.3.5
+- **Estilos:** [TailwindCSS](https://tailwindcss.com/) v4.1.8
+- **Otras dependencias principales:**
+  - @mui/material v7.1.1
+  - react-router-dom v7.6.2
+  - axios v1.9.0
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Requisitos previos
+
+- [Node.js](https://nodejs.org/) v18 o superior
+- [npm](https://www.npmjs.com/) v9 o superior (incluido con Node.js)
+
+## Instalación
+
+1. **Clona el repositorio desde GitHub:**
+
+   ```bash
+   git clone https://github.com/TraumaticEvolutions/TEvoSales-Frontend.git
+   cd TEvoSales-Frontend
+   ```
+
+2. **Instala las dependencias**
+
+```bash
+  npm install
+```
+
+3. **Configura y levanta el back**
+
+Repositorio y guía de instalación: [TEvoSales-BackEnd](https://github.com/TraumaticEvolutions/TEvoSales-Backend)
+
+4. **Ejecución de la aplicación**
+
+```bash
+npm run dev
+```
+
+La aplicación estará disponible normalmente en `http://localhost:5173`
+El CORS del back esta configurado para esta dirección, si el puerto es distinto habría que ocnfigurarlo en el back o cambiar al `5173`
+
+## Equipo de Desarrollo
+
+- [**Ángel Miguel Aragón** - _@Algol95_](https://github.com/Algol95)
