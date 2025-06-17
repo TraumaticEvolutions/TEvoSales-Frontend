@@ -3,6 +3,7 @@ import List from "../components/List";
 import Pagination from "../components/Pagination";
 import Button from "../components/Button";
 import SuccessMsg from "../components/SuccessMsg";
+import ErrorMsg from "../components/ErrorMsg";
 import ConfirmDeleteModal from "../components/ConfirmDeleteModal";
 import RoleCreateModal from "../components/RoleCreateModal";
 import RoleEditModal from "../components/RoleEditModal";
@@ -34,6 +35,7 @@ export default function AdminRoles() {
   const [roleToDelete, setRoleToDelete] = useState(null);
   const [deleting, setDeleting] = useState(false);
   const [successMsg, setSuccessMsg] = useState("");
+  const [errorMsg, setErrorMsg] = useState("");
 
   useEffect(() => {
     setLoading(true);
@@ -50,24 +52,36 @@ export default function AdminRoles() {
   };
 
   const handleRoleCreated = () => {
-    setSuccessMsg("¡Rol creado correctamente!");
-    setCreateModalOpen(false);
-    getRolesRequestPaged({ ...filters, page }).then((res) => {
-      setRoles(res.content || []);
-      setTotalPages(res.totalPages || 1);
-    });
-    setTimeout(() => setSuccessMsg(""), 4000);
+    try {
+      setSuccessMsg("¡Rol creado correctamente!");
+      setCreateModalOpen(false);
+      getRolesRequestPaged({ ...filters, page }).then((res) => {
+        setRoles(res.content || []);
+        setTotalPages(res.totalPages || 1);
+      });
+      setTimeout(() => setSuccessMsg(""), 4000);
+      // eslint-disable-next-line no-unused-vars
+    } catch (err) {
+      setErrorMsg("Error al crear el rol");
+      setTimeout(() => setErrorMsg(""), 4000);
+    }
   };
 
   const handleRoleEdited = () => {
-    setSuccessMsg("¡Rol editado correctamente!");
-    setEditModalOpen(false);
-    setRoleToEdit(null);
-    getRolesRequestPaged({ ...filters, page }).then((res) => {
-      setRoles(res.content || []);
-      setTotalPages(res.totalPages || 1);
-    });
-    setTimeout(() => setSuccessMsg(""), 4000);
+    try {
+      setSuccessMsg("¡Rol editado correctamente!");
+      setEditModalOpen(false);
+      setRoleToEdit(null);
+      getRolesRequestPaged({ ...filters, page }).then((res) => {
+        setRoles(res.content || []);
+        setTotalPages(res.totalPages || 1);
+      });
+      setTimeout(() => setSuccessMsg(""), 4000);
+      // eslint-disable-next-line no-unused-vars
+    } catch (err) {
+      setErrorMsg("Error al editar el rol");
+      setTimeout(() => setErrorMsg(""), 4000);
+    }
   };
 
   const handleDeleteRole = async () => {
@@ -85,7 +99,7 @@ export default function AdminRoles() {
       setTimeout(() => setSuccessMsg(""), 4000);
       // eslint-disable-next-line no-unused-vars
     } catch (err) {
-      setSuccessMsg("Error al eliminar el rol");
+      setErrorMsg("Error al eliminar el rol");
       setTimeout(() => setSuccessMsg(""), 4000);
     } finally {
       setDeleting(false);
@@ -109,7 +123,9 @@ export default function AdminRoles() {
       render: (row) => {
         const baseName = removeRolePrefix(row.name).toUpperCase();
         const isProtected =
-          baseName === "ADMIN" || baseName === "CLIENTE" || baseName === "ENTIDAD";
+          baseName === "ADMIN" ||
+          baseName === "CLIENTE" ||
+          baseName === "ENTIDAD";
         return (
           <div className="flex gap-2 justify-end">
             <Button
@@ -152,6 +168,7 @@ export default function AdminRoles() {
         Gestión de roles
       </h2>
       {successMsg && <SuccessMsg>{successMsg}</SuccessMsg>}
+      {errorMsg && <ErrorMsg>{errorMsg}</ErrorMsg>}
       <div className="mb-6 w-full max-w-3xl bg-white rounded-2xl p-4 shadow-md flex flex-col items-center justify-center">
         <form
           className="flex flex-col sm:flex-row gap-2 items-center w-full justify-around"

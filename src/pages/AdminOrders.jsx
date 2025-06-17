@@ -9,6 +9,7 @@ import { FaBoxOpen } from "react-icons/fa";
 import OrderDetailsModal from "../components/OrderDetailsModal";
 import OrderEditStatusModal from "../components/OrderEditStatusModal";
 import SuccessMsg from "../components/SuccessMsg";
+import ErrorMsg from "../components/ErrorMsg";
 
 /**
  * Página de administración de pedidos.
@@ -36,6 +37,7 @@ export default function AdminOrders() {
   const [newStatus, setNewStatus] = useState("");
   const [saving, setSaving] = useState(false);
   const [successMsg, setSuccessMsg] = useState("");
+  const [errorMsg, setErrorMsg] = useState("");
 
   useEffect(() => {
     setLoading(true);
@@ -134,7 +136,8 @@ export default function AdminOrders() {
       setTimeout(() => setSuccessMsg(""), 4000);
       // eslint-disable-next-line no-unused-vars
     } catch (err) {
-      alert("Error al actualizar el estado");
+      setErrorMsg("Error al actualizar el estado del pedido");
+      setTimeout(() => setErrorMsg(""), 4000);
     } finally {
       setSaving(false);
     }
@@ -147,6 +150,7 @@ export default function AdminOrders() {
           Gestión de pedidos
         </h2>
         {successMsg && <SuccessMsg>{successMsg}</SuccessMsg>}
+        {errorMsg && <ErrorMsg>{errorMsg}</ErrorMsg>}
         <OrderFilter filters={filters} onChange={setFilters} />
         {loading ? (
           <div className="text-cyan-700 font-semibold my-10">Cargando...</div>

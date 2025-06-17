@@ -14,6 +14,7 @@ import EditUserRolesModal from "../components/EditUserRolesModal";
 import ConfirmDeleteModal from "../components/ConfirmDeleteModal";
 import UserDetailsModal from "../components/UserDetailsModal";
 import SuccessMsg from "../components/SuccessMsg";
+import ErrorMsg from "../components/ErrorMsg";
 
 /**
  * Componente para la administración de usuarios.
@@ -41,6 +42,7 @@ export default function AdminUsers() {
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [userToDelete, setUserToDelete] = useState(null);
   const [successMsg, setSuccessMsg] = useState("");
+  const [errorMsg, setErrorMsg] = useState("");
 
   useEffect(() => {
     getRolesRequest().then(setRoles);
@@ -71,8 +73,10 @@ export default function AdminUsers() {
       setEditModalOpen(false);
       setEditUser(null);
       setTimeout(() => setSuccessMsg(""), 4000);
+      // eslint-disable-next-line no-unused-vars
     } catch (err) {
-      console.error("Error actualizando roles:", err);
+      setErrorMsg("Error al actualizar los roles del usuario");
+      setTimeout(() => setErrorMsg(""), 4000);
     }
   };
 
@@ -90,8 +94,10 @@ export default function AdminUsers() {
       setDeleteModalOpen(false);
       setUserToDelete(null);
       setTimeout(() => setSuccessMsg(""), 4000);
+      // eslint-disable-next-line no-unused-vars
     } catch (err) {
-      console.error("Error borrando usuario:", err);
+      setErrorMsg("Error al eliminar el usuario");
+      setTimeout(() => setErrorMsg(""), 4000);
     }
   };
 
@@ -147,6 +153,7 @@ export default function AdminUsers() {
           Gestión de usuarios
         </h2>
         {successMsg && <SuccessMsg>{successMsg}</SuccessMsg>}
+        {errorMsg && <ErrorMsg>{errorMsg}</ErrorMsg>}
         <UserFilter
           filters={filters}
           onChange={setFilters}

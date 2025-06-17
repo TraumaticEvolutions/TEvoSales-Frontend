@@ -10,6 +10,7 @@ import ProductCreateModal from "../components/ProductCreateModal";
 import ProductEditModal from "../components/ProductEditModal";
 import ConfirmDeleteModal from "../components/ConfirmDeleteModal";
 import SuccessMsg from "../components/SuccessMsg";
+import ErrorMsg from "../components/ErrorMsg";
 
 /**
  * Página de administración de productos.
@@ -36,6 +37,7 @@ export default function AdminProducts() {
   const [productToDelete, setProductToDelete] = useState(null);
   const [deleting, setDeleting] = useState(false);
   const [successMsg, setSuccessMsg] = useState("");
+  const [errorMsg, setErrorMsg] = useState("");
 
   useEffect(() => {
     setLoading(true);
@@ -99,24 +101,36 @@ export default function AdminProducts() {
   });
 
   const handleProductCreated = () => {
-    setSuccessMsg("¡Producto creado correctamente!");
-    setCreateModalOpen(false);
-    allProductsRequest({ ...filters, page }).then((res) => {
-      setProducts(res.content || []);
-      setTotalPages(res.totalPages || 1);
-    });
-    setTimeout(() => setSuccessMsg(""), 4000);
+    try {
+      setSuccessMsg("¡Producto creado correctamente!");
+      setCreateModalOpen(false);
+      allProductsRequest({ ...filters, page }).then((res) => {
+        setProducts(res.content || []);
+        setTotalPages(res.totalPages || 1);
+      });
+      setTimeout(() => setSuccessMsg(""), 4000);
+      // eslint-disable-next-line no-unused-vars
+    } catch (err) {
+      setErrorMsg("Error al crear el producto");
+      setTimeout(() => setErrorMsg(""), 4000);
+    }
   };
 
   const handleProductEdited = () => {
-    setSuccessMsg("¡Producto editado correctamente!");
-    setEditModalOpen(false);
-    setProductToEdit(null);
-    allProductsRequest({ ...filters, page }).then((res) => {
-      setProducts(res.content || []);
-      setTotalPages(res.totalPages || 1);
-    });
-    setTimeout(() => setSuccessMsg(""), 4000);
+    try {
+      setSuccessMsg("¡Producto editado correctamente!");
+      setEditModalOpen(false);
+      setProductToEdit(null);
+      allProductsRequest({ ...filters, page }).then((res) => {
+        setProducts(res.content || []);
+        setTotalPages(res.totalPages || 1);
+      });
+      setTimeout(() => setSuccessMsg(""), 4000);
+      // eslint-disable-next-line no-unused-vars
+    } catch (err) {
+      setErrorMsg("Error al editar el producto");
+      setTimeout(() => setErrorMsg(""), 4000);
+    }
   };
 
   const handleProductDeleted = async () => {
@@ -134,8 +148,8 @@ export default function AdminProducts() {
       setTimeout(() => setSuccessMsg(""), 4000);
       // eslint-disable-next-line no-unused-vars
     } catch (err) {
-      setSuccessMsg("Error al eliminar el producto");
-      setTimeout(() => setSuccessMsg(""), 4000);
+      setErrorMsg("Error al eliminar el producto");
+      setTimeout(() => setErrorMsg(""), 4000);
     } finally {
       setDeleting(false);
     }
@@ -147,6 +161,7 @@ export default function AdminProducts() {
         Gestión de productos
       </h2>
       {successMsg && <SuccessMsg>{successMsg}</SuccessMsg>}
+      {errorMsg && <ErrorMsg>{errorMsg}</ErrorMsg>}
       <div className="mb-6 w-full max-w-3xl">
         <ProductFilters
           filters={filters}

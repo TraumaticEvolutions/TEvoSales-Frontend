@@ -67,7 +67,7 @@ api.interceptors.response.use(
  * @author Ángel Aragón
  */
 export async function loginRequest(credentials) {
-  const response = await api.post(`${API_URL}/auth/login`, credentials);
+  const response = await api.post(`/auth/login`, credentials);
   return response.data;
 }
 
@@ -78,7 +78,7 @@ export async function loginRequest(credentials) {
  * @author Ángel Aragón
  */
 export async function randomProductsRequest() {
-  const response = await api.get(`${API_URL}/products/random`);
+  const response = await api.get(`/products/random`);
   return response.data;
 }
 
@@ -90,7 +90,7 @@ export async function randomProductsRequest() {
  * @author Ángel Aragón
  */
 export async function registerRequest(userData) {
-  const response = await api.post(`${API_URL}/users/register`, userData);
+  const response = await api.post(`/users/register`, userData);
   return response.data;
 }
 
@@ -103,7 +103,7 @@ export async function registerRequest(userData) {
  * @author Ángel Aragón
  */
 export async function allProductsRequest(params = {}) {
-  const response = await api.get(`${API_URL}/products`, { params });
+  const response = await api.get(`/products`, { params });
   return response.data;
 }
 
@@ -115,7 +115,7 @@ export async function allProductsRequest(params = {}) {
  * @author Ángel Aragón
  */
 export async function productByIdRequest(id) {
-  const response = await api.get(`${API_URL}/products/${id}`);
+  const response = await api.get(`/products/${id}`);
   return response.data;
 }
 
@@ -127,7 +127,7 @@ export async function productByIdRequest(id) {
  * @author Ángel Aragón
  */
 export async function newOrder(orderData) {
-  const response = await api.post(`${API_URL}/orders`, orderData);
+  const response = await api.post(`/orders`, orderData);
   return response.data;
 }
 
@@ -142,7 +142,7 @@ export async function newOrder(orderData) {
  * @author Ángel Aragón
  */
 export async function ordersRequest({ page = 0, startDate, endDate } = {}) {
-  const response = await api.get(`${API_URL}/orders`, {
+  const response = await api.get(`/orders`, {
     params: { page, startDate, endDate },
   });
   return response.data;
@@ -167,7 +167,7 @@ export async function allOrdersRequest({
   endDate,
   page = 0,
 } = {}) {
-  const response = await api.get(`${API_URL}/orders/all`, {
+  const response = await api.get(`/orders/all`, {
     params: { username, status, startDate, endDate, page },
   });
   return response.data;
