@@ -1,5 +1,7 @@
 # TEvoSales Frontend
 
+**Versión:** 1.0.0
+
 TEvoSales Frontend es una aplicación web desarrollada con React y Vite que sirve como interfaz de usuario para la gestión y visualización de ventas. La aplicación está diseñada para ser rápida, moderna y fácil de mantener, utilizando las últimas tecnologías del ecosistema JavaScript.
 
 ![Image Front](https://i.imgur.com/5JVctRi.png)
