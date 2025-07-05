@@ -1,6 +1,10 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:8080/api";
+/**
+ * URL base de la API.
+ * Se obtiene de las variables de entorno definidas en el archivo .env.local.
+ */
+const API_URL = import.meta.env.VITE_API_URL;
 
 /**
  * Crea una instancia de Axios para realizar solicitudes a la API.
